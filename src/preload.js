@@ -1,0 +1,16 @@
+var preloadSprites = function (game) {
+    // ui
+    game.load.image('menubar', 'asset/ui/menubar.png');
+    game.load.image('add', 'asset/ui/add.png');
+    game.load.image('button', 'asset/ui/button.png');
+    
+    // tiles
+    game.load.image('grass_tile', 'asset/terrain/grass_tile.png');
+    
+    // buildings
+    game.load.image('oak_lab', 'asset/buildings/oak_lab.png');
+    
+    // pokemon
+    game.load.image('bulbasaur', 'asset/units/bulbasaur.png');
+    game.load.image('squirtle', 'asset/units/squirtle.png');
+};
