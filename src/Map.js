@@ -7,7 +7,7 @@ Map.prototype.init = function () {
     this.width = 800;
     this.height = 600;
     this.delta = 20; // must divide gcd(width, height)
-    
+
     // setting background (should be a "loadlevel" function)
     tilesprite = game.add.tileSprite(0, 0, 800, 600, 'grass_tile');
 };
@@ -18,13 +18,13 @@ Map.prototype.getCurrentTilemap = function (cb) {
         tilemap[j] = new Array(this.width/this.delta);
         tilemap[j].fill(0);
     }
-    
+
     for (var id in units) { // should be done over all physical sprites, and implementing sizes
         var x = Math.floor(units[id].obj.x/this.delta);
         var y = Math.floor(units[id].obj.y/this.delta);
         tilemap[y][x] = 1;
     }
-    
+
     for (var id in buildings) {
         var x = Math.floor(buildings[id].obj.x/this.delta);
         var y = Math.floor(buildings[id].obj.y/this.delta);
@@ -39,10 +39,23 @@ Map.prototype.getCurrentTilemap = function (cb) {
             }
         }
     }
-    
+
     if (cb) {
         cb(tilemap);
     }
     return tilemap;
 };
 
+Map.prototype.printMap = function () {
+  this.getCurrentTilemap(function (tm) {
+    console.log();
+    for (var row = 0; row < tm.length; row++) {
+      var line = "";
+      for (var col = 0; col < tm[row].length; col++) {
+        line += " "+tm[row][col];
+      }
+      console.log(line);
+    }
+    console.log();
+  });
+};
