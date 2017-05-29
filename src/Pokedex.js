@@ -7,4 +7,8 @@ var pokedex = {
         name: 'Squirtle',
         sprite: 'squirtle'
     },
+    hero: {
+        name: 'Hero',
+        sprite: 'gbc_hero'
+    },
 };

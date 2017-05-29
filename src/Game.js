@@ -10,6 +10,7 @@ var unitsGrp;
 var that;
 var buildings = [];
 var units = [];
+var hero;
 var constructing = false;
 var selected = [];
 var map;
@@ -74,7 +75,10 @@ BasicGame.Game.prototype = {
         unitsGrp.enableBody = true;
         unitsGrp.setAll('body.collideWorldBounds', true);
 
+        // load map elements
         new Building(200,200);
+        // load hero
+        hero = new Unit(00, 00, 'hero');
 
         // prepare input reactions
         game.input.onDown.add(this.click, this);
@@ -84,15 +88,12 @@ BasicGame.Game.prototype = {
         game.physics.arcade.collide(unitsGrp, unitsGrp, this.unitsCollision);
 
 
-        for (var id in units) {
-            if (units[id].selected) {
-                if (game.input.mousePointer.isDown) {
-                    if (game.input.activePointer.rightButton.isDown) {
-                        units[id].moveTowards(game.input.x, game.input.y);
-                    }
-                }
-            }
-        }
+        // for (var id in units) {
+        //     if (game.input.mousePointer.isDown) {
+        //             console.log(units);
+        //             units[id].moveTowards(game.input.x, game.input.y);
+        //     }
+        // }
 
     },
 
@@ -101,5 +102,7 @@ BasicGame.Game.prototype = {
 
     click: function (pointer) {
         // units[id].moveTowards(pointer.x, pointer.y);
+        console.log("click "+ Math.random())
+        hero.moveTowards(game.input.x, game.input.y);
     },
 };

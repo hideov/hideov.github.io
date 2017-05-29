@@ -4,12 +4,12 @@ Map = function () {
 };
 
 Map.prototype.init = function () {
-    this.width = 800;
-    this.height = 600;
-    this.delta = 20; // must divide gcd(width, height)
+    this.width = 768;
+    this.height = 640;
+    this.delta = 64; // must divide gcd(width, height)
 
     // setting background (should be a "loadlevel" function)
-    tilesprite = game.add.tileSprite(0, 0, 800, 600, 'grass_tile');
+    tilesprite = game.add.tileSprite(0, 0, 768, 640, 'dbg_grass_tile');
 };
 
 Map.prototype.getCurrentTilemap = function (cb) {
@@ -20,6 +20,9 @@ Map.prototype.getCurrentTilemap = function (cb) {
     }
 
     for (var id in units) { // should be done over all physical sprites, and implementing sizes
+        if (units[id].name === "Hero") {
+          continue;
+        }
         var x = Math.floor(units[id].obj.x/this.delta);
         var y = Math.floor(units[id].obj.y/this.delta);
         tilemap[y][x] = 1;

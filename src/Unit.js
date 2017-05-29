@@ -1,10 +1,10 @@
 
-Pokemon = function () {
+Unit = function () {
     // return this.init.call(this, arguments);
     return this.init(arguments[0], arguments[1], arguments[2]);
 };
 
-Pokemon.prototype.init = function (x, y, species) {
+Unit.prototype.init = function (x, y, species) {
     this.id = randId();
     var self = this;
     var poke = pokedex[species];
@@ -15,7 +15,7 @@ Pokemon.prototype.init = function (x, y, species) {
     // now the phaser part
     this.obj = game.add.sprite(x,y,poke.sprite, undefined, unitsGrp);
     this.obj.immovable = false;
-    this.obj.anchor.set(0.5);
+    // this.obj.anchor.set(0.5);
     this.obj.inputEnabled = true;
     this.obj.events.onInputDown.add(function () { return self.onClick(); }, this);
     this.obj.logicalPtr = this;
@@ -30,15 +30,15 @@ Pokemon.prototype.init = function (x, y, species) {
 };
 
 
-Pokemon.prototype.moveTowards = function (x, y) {
+Unit.prototype.moveTowards = function (x, y) {
     if (this.findingPath) {
         return;
     }
     this.findingPath = true;
 
-    this.destination.x = x;
-    this.destination.y = y;
-    this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
+    this.destination.x = x - (x % 64);
+    this.destination.y = y - (y % 64);
+    // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
     // obtain a tilemap
     var tm = map.getCurrentTilemap();
@@ -46,9 +46,10 @@ Pokemon.prototype.moveTowards = function (x, y) {
     var easystar = new EasyStar.js();
     easystar.setGrid(tm);
     easystar.setAcceptableTiles([0]);
-    easystar.enableDiagonals();
+    // easystar.enableDiagonals();
     easystar.enableCornerCutting();
 
+    map.printMap();
 
     var self = this;
     easystar.findPath(
@@ -57,7 +58,8 @@ Pokemon.prototype.moveTowards = function (x, y) {
         Math.floor(x/map.delta),
         Math.floor(y/map.delta),
         function( path ) {
-            if (path === null) {
+            console.log(path)
+            if (path === null || path.length === 0) {
                 var tween = game.add.tween(self.obj).to({tint: 0xFF0000}, 400, "Linear").to({tint: 0xFFFFFF}, 400, "Linear");
                 tween.start();
             } else {
@@ -72,27 +74,15 @@ Pokemon.prototype.moveTowards = function (x, y) {
                 }
                 // finally fix exact (not rounded on grid) position
                 // should also find a away of not overlapping units
-                j = tweens.push(game.add.tween(self.obj).to({ x: map.delta*(path[path.length-1].x + Math.random()), y: map.delta*(path[path.length-1].y + Math.random()) }, 5, "Linear"));
+                j = tweens.push(game.add.tween(self.obj).to({ x: map.delta*path[path.length-1].x, y: map.delta*path[path.length-1].y }, 5, "Linear"));
                 tweens[j-2].chain(tweens[j-1]);
                 tweens[0].start();
-                self.findingPath = false;
             }
+            self.findingPath = false;
         });
-     easystar.calculate();
+    easystar.calculate();
 };
 
 
-Pokemon.prototype.setSelected = function (sel) {
-    this.selected = !!sel;
-    this.obj.tint = this.selected ? 0x0000FF : 0xFFFFFF;
-
-    if (this.selected) {
-        selected[this.id] = this;
-    } else {
-        delete selected[this.id];
-    }
-};
-
-
-Pokemon.prototype.onClick = function () {
+Unit.prototype.onClick = function () {
 };
