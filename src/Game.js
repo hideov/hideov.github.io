@@ -25,84 +25,81 @@ BasicGame.Game = function (game) {};
 // set Game function prototype
 BasicGame.Game.prototype = {
 
-    init: function () {
-        this.input.maxPointers = 1;
-        this.stage.disableVisibilityChange = true;
-        this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
-        this.scale.forceOrientation(true, false);
-        this.scale.setResizeCallback(this.gameResized, this);
-        this.scale.updateLayout(true);
-        this.scale.refresh();
+  init: function () {
+    this.input.maxPointers = 1;
+    this.stage.disableVisibilityChange = true;
+    this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    this.scale.forceOrientation(true, false);
+    this.scale.setResizeCallback(this.gameResized, this);
+    this.scale.updateLayout(true);
+    this.scale.refresh();
 
-        that = this;
-        game = this.game;
-    },
+    that = this;
+    game = this.game;
+  },
 
-    preload: function () {
-        preloadSprites(this);
-    },
+  preload: function () {
+    preloadSprites(this);
+  },
 
-    create: function () {
+  create: function () {
+    map = new Map();
+    ui = new UI();
 
+    // global click listeners
+    game.input.onDown.add(function () {
+      if (game.input.activePointer.rightButton.isDown) {
+        ui.emitOnClick('r');
+      }
+      if (game.input.activePointer.leftButton.isDown) {
+        ui.emitOnClick('l');
+      }
+    }, this);
 
-        map = new Map();
-        ui = new UI();
+    // prevent browser right click on canvas
+    game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
 
-        // global click listeners
-        game.input.onDown.add(function () {
-            if (game.input.activePointer.rightButton.isDown) {
-                ui.emitOnClick('r');
-            }
-            if (game.input.activePointer.leftButton.isDown) {
-                ui.emitOnClick('l');
-            }
-        }, this);
-
-        // prevent browser right click on canvas
-        game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
-
-        // start physics
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+    // start physics
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
-        // initialise groups for units and buildings
-        buildingsGrp = game.add.group();
-        buildingsGrp.enableBody = true;
+    // initialise groups for units and buildings
+    buildingsGrp = game.add.group();
+    buildingsGrp.enableBody = true;
 
-        unitsGrp = game.add.physicsGroup();
-        unitsGrp.enableBody = true;
-        unitsGrp.setAll('body.collideWorldBounds', true);
+    unitsGrp = game.add.physicsGroup();
+    unitsGrp.enableBody = true;
+    unitsGrp.setAll('body.collideWorldBounds', true);
 
-        // load map elements
-        new Building(128,192);
-        // load hero
-        hero = new Unit(00, 00, 'hero');
+    // load map elements
+    new Building(128,192);
+    // load hero
+    hero = new Unit(00, 00, 'hero');
 
-        // prepare input reactions
-        game.input.onDown.add(this.click, this);
-    },
+    // prepare input reactions
+    game.input.onDown.add(this.click, this);
+  },
 
-    update: function () {
-        game.physics.arcade.collide(unitsGrp, unitsGrp, this.unitsCollision);
+  update: function () {
+    game.physics.arcade.collide(unitsGrp, unitsGrp, this.unitsCollision);
 
 
-        // for (var id in units) {
-        //     if (game.input.mousePointer.isDown) {
-        //             console.log(units);
-        //             units[id].moveTowards(game.input.x, game.input.y);
-        //     }
-        // }
+    // for (var id in units) {
+    //     if (game.input.mousePointer.isDown) {
+    //             console.log(units);
+    //             units[id].moveTowards(game.input.x, game.input.y);
+    //     }
+    // }
+  },
 
-    },
+  render: function () {
+  },
 
-    render: function () {
-    },
-
-    click: function (pointer) {
-        // units[id].moveTowards(pointer.x, pointer.y);
-        // console.log("click "+ Math.random())
-        hero.moveTowards(game.input.x, game.input.y);
-    },
+  click: function (pointer) {
+    // units[id].moveTowards(pointer.x, pointer.y);
+    // console.log("click "+ Math.random())
+    hero.moveTowards(game.input.x, game.input.y);
+  },
 };
