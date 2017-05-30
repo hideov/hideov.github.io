@@ -36,8 +36,8 @@ Unit.prototype.moveTowards = function (x, y) {
     }
     this.findingPath = true;
 
-    this.destination.x = x - (x % 64);
-    this.destination.y = y - (y % 64);
+    this.destination.x = x - (x % map.delta);
+    this.destination.y = y - (y % map.delta);
     // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
     // obtain a tilemap

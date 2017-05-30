@@ -9,18 +9,21 @@ Building.prototype.init = function (x, y) {
     this.id = randId();
     this.building = factories['oak_lab'];
     this.name = this.building.name;
-    this.x = x;
-    this.y = y;
-    
+    this.x = x - (x % map.delta);
+    this.y = y - (y % map.delta);
+
+    // see if it fits on tile map
+    //TODO
+
     // now the phaser part
     this.obj = game.add.sprite(x,y,this.building.sprite, undefined, buildingsGrp);
     // this.obj.immovable = false;
-    this.obj.anchor.set(0.5);
+    // this.obj.anchor.set(0.5);
     this.obj.inputEnabled = true;
     this.obj.events.onInputDown.add(function () { return self.onClick(); }, this);
     this.obj.logicalPtr = this;
     game.physics.arcade.enable(this.obj);
-    
+
     // returns
     buildings[this.id] = this;
     return this.id;

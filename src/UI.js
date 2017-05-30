@@ -110,7 +110,7 @@ UI.prototype.init = function () {
         'rclick' : [],
         'lclick' : [],
     };
-    this.menu = new Menu(this, 800-320, 0);
+    // this.menu = new Menu(this, 800-320, 0);
     var ui = this;
     var action = function () {
         constructing = true;
@@ -126,7 +126,7 @@ UI.prototype.init = function () {
          // add yourself to click listeners after being executed
          ui.onClick('r', listenerR);
     }
-    this.menu.addButton(action, undefined, listenerR, 'add');
+    // this.menu.addButton(action, undefined, listenerR, 'add');
 };
 
 UI.prototype.onClick = function (button, handler) {

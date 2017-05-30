@@ -76,7 +76,7 @@ BasicGame.Game.prototype = {
         unitsGrp.setAll('body.collideWorldBounds', true);
 
         // load map elements
-        new Building(200,200);
+        new Building(128,192);
         // load hero
         hero = new Unit(00, 00, 'hero');
 
@@ -102,7 +102,7 @@ BasicGame.Game.prototype = {
 
     click: function (pointer) {
         // units[id].moveTowards(pointer.x, pointer.y);
-        console.log("click "+ Math.random())
+        // console.log("click "+ Math.random())
         hero.moveTowards(game.input.x, game.input.y);
     },
 };
