@@ -23,8 +23,8 @@ Unit.prototype.moveTowards = function (x, y) {
   }
   this.findingPath = true;
 
-  this.destination.x = x - (x % map.delta);
-  this.destination.y = y - (y % map.delta);
+  this.destination.x = Math.floor(x/map.delta);
+  this.destination.y = Math.floor(y/map.delta);
   // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
   // obtain a tilemap
@@ -40,20 +40,31 @@ Unit.prototype.moveTowards = function (x, y) {
 
   var self = this;
   easystar.findPath(
-    Math.floor  (this.obj.x/map.delta),
-    Math.floor(this.obj.y/map.delta),
-    Math.floor(x/map.delta),
-    Math.floor(y/map.delta),
+    self.x,
+    self.y,
+    self.destination.x,
+    self.destination.y,
     function( path ) {
+      self.findingPath = false;
       // if no path found, try to get close
       if (path === null || path.length === 0) {
-        var tween = game.add.tween(self.obj)
-          .to({tint: 0xFF0000}, 400, "Linear")
-          .to({tint: 0xFFFFFF}, 400, "Linear");
-        tween.start();
+        // var tween = game.add.tween(self.obj)
+        //   .to({tint: 0xFF0000}, 400, "Linear")
+        //   .to({tint: 0xFFFFFF}, 400, "Linear");
+        // tween.start();
+        // move south of the object if you are not there
+        console.log(x,y+1);
+        console.log(self.x, self.y)
+        if (self.destination.x !== self.x || self.destination.y+1 !== self.y) {
+          // these below are pixel distances, they come from clicks
+          self.moveTowards(x, y + map.delta);
+        }
       } else {
-        // create animation for step by step movement
+        // update object coordinates
+        self.x = self.destination.x;
+        self.y = self.destination.y;
 
+        // create animation for step by step movement
         var tweens = [];
         tweens.push(game.add.tween(self.obj)
           .to({ x: path[0].x*map.delta, y: path[0].y*map.delta }, 10, "Linear"));
@@ -63,10 +74,9 @@ Unit.prototype.moveTowards = function (x, y) {
             .to({ x: path[j].x*map.delta, y: path[j].y*map.delta }, 10, "Linear"));
           tweens[j-1].chain(tweens[j]);
         }
-        
+
         tweens[0].start();
       }
-      self.findingPath = false;
     });
   easystar.calculate();
 };

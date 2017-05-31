@@ -74,10 +74,10 @@ BasicGame.Game.prototype = {
     unitsGrp.setAll('body.collideWorldBounds', true);
 
     // load map elements
-    new Building(128,192, 'oak_lab');
-    new Building(512,192, 'oak_lab');
+    new Building(2,3, 'oak_lab');
+    new Building(8,3, 'oak_lab');
     // load hero
-    hero = new Unit(00, 00, 'hero');
+    hero = new Unit(0, 0, 'hero');
 
     // prepare input reactions
     game.input.onDown.add(this.click, this);

@@ -14,20 +14,18 @@ Obj.prototype.init = function (x, y, kind) {
   this.id = randId();
   this.model = this.factory[kind];
   this.name = this.model.name;
-  this.x = x - (x % map.delta);
-  this.y = y - (y % map.delta);
+  this.x = x;
+  this.y = y;
 
 
   // see if it fits on tile map
   var tilemap = map.getCurrentTilemap();
-  var x = this.x/map.delta;
-  var y = this.y/map.delta;
   var w = game.cache.getImage(this.model.sprite).width/map.delta;
   var h = game.cache.getImage(this.model.sprite).height/map.delta;
   var itFits = true;
   for (var i = 0; i < w && itFits; i++) {
     for (var j = 0; j < h && itFits; j++) {
-      itFits = tilemap[y+j][x+i] == 0;
+      itFits = tilemap[this.y+j][this.x+i] == 0;
     }
   }
   if (!itFits) {
@@ -35,7 +33,7 @@ Obj.prototype.init = function (x, y, kind) {
   }
 
   // now the phaser part
-  this.obj = game.add.sprite(this.x,this.y,this.model.sprite, undefined, this.grp);
+  this.obj = game.add.sprite(this.x*map.delta, this.y*map.delta, this.model.sprite, undefined, this.grp);
   // this.obj.immovable = false;
   // this.obj.anchor.set(0.5);
   this.obj.inputEnabled = true;
