@@ -9,7 +9,7 @@ Map.prototype.init = function () {
   this.delta = game.delta; // must divide gcd(width, height)
 
   // setting background (should be a "loadlevel" function)
-  tilesprite = game.add.tileSprite(0, 0, this.width, this.height, 'dbg_grass_tile');
+  tilesprite = game.add.tileSprite(0, 0, this.width, this.height, 'gbc_grass_tile');
 };
 
 Map.prototype.getCurrentTilemap = function (cb) {

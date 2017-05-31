@@ -40,8 +40,8 @@ Dialog = function (url, target, options)
   this.el.style.left = this.opts.l + "px";
   this.el.style.display = "none";
 
-//  var handle = document.createElement('div');
-//  handle.className = "popup-handle";
+ var handle = document.createElement('div');
+ handle.className = "popup-handle";
   var actions = document.createElement('div');
   actions.className = "popup-actions";
   var close = document.createElement('img');
@@ -78,11 +78,10 @@ Dialog = function (url, target, options)
   content.appendChild(this.iframe);
   content.appendChild(cover);
   actions.appendChild(close);
-//  handle.appendChild(actions);
-//  handle.appendChild(title);
-//  this.el.appendChild(handle);
+  handle.appendChild(actions);
+  handle.appendChild(title);
+  this.el.appendChild(handle);
   this.el.appendChild(content);
-  this.el.appendChild(actions);
 
 
 //  this.el.innerHTML += '<div class="popup-handle"> \
@@ -124,7 +123,7 @@ Dialog.prototype.popupise = function ()
           })
           .draggable({
             iframeFix: true,
-//            handle: "div.popup-handle",
+           handle: "div.popup-handle",
             stack: ".floating"
           })
           .bind("click", function (e) {
