@@ -4,12 +4,13 @@ Map = function () {
 };
 
 Map.prototype.init = function () {
-  this.width = 768;
-  this.height = 640;
-  this.delta = 64; // must divide gcd(width, height)
+  this.width = game.width;
+  this.height = game.height;
+  this.delta = game.delta; // must divide gcd(width, height)
+  console.log(this.width, this.height, this.delta);
 
   // setting background (should be a "loadlevel" function)
-  tilesprite = game.add.tileSprite(0, 0, 768, 640, 'dbg_grass_tile');
+  tilesprite = game.add.tileSprite(0, 0, this.width, this.height, 'dbg_grass_tile');
 };
 
 Map.prototype.getCurrentTilemap = function (cb) {

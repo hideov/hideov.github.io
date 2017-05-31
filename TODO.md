@@ -14,3 +14,8 @@ Uncaught TypeError: Cannot read property 'base' of null
     at c.Loader.processLoadQueue (phaser.min.js:3)
     at c.Loader.asyncComplete (phaser.min.js:3)
     at c.Loader.fileComplete (phaser.min.js:3)
+
+
+
+Add responsive game boy pocket border
+Make site responsive, by repositioning buildings and resizing canvas and tilemap
