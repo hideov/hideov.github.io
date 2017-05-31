@@ -4,7 +4,10 @@ var factories = {
     sprite: 'oak_lab',
     onClick: function (x, y) {
       // dialog should show up after building reached. add event list
-      $( "#dialog" ).dialog();
+      //    options = 'scrollbars=yes,width=' + w + ',height=' + h + ',left=' + posX + ',top=' + posY;
+      //    var options = {w: w, h: h, l: posX, t: posY, title: title};
+      var newChildWindow = new Dialog('/content/test.html', "test name", undefined);
+      // $( "#dialog" ).dialog();
       // stop game from listening until closed current dialog
     }
   },

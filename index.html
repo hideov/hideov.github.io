@@ -3,31 +3,33 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>LOL</title>
+	<!-- Libraries -->
   <script type="text/javascript" src="lib/phaser.min.js"></script>
   <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="lib/easystar-0.4.1.min.js"></script>
+
+	<!-- Source -->
   <script type="text/javascript" src="src/utils.js"></script>
 	<script type="text/javascript" src="src/preload.js"></script>
+	<script type="text/javascript" src="src/Dialog.js"></script>
 	<script type="text/javascript" src="src/Object.js"></script>
   <script type="text/javascript" src="src/Factories.js"></script>
   <script type="text/javascript" src="src/Game.js"></script>
+	<script type="text/javascript" src="src/UI.js"></script>
 	<script type="text/javascript" src="src/Buildings.js"></script>
   <script type="text/javascript" src="src/Map.js"></script>
   <script type="text/javascript" src="src/Unit.js"></script>
-  <script type="text/javascript" src="src/UI.js"></script>
-  <script type="text/javascript" src="src/app.js"></script>
-    <style type="text/css">
-      body {
-        margin: 0;
-      }
-    </style>
-		<script>
-  $( function() {
-    // $( "#dialog" ).dialog();
-  } );
-  </script>
+  <script type="text/javascript" src="src/app.js"></script> <!-- Last! -->
+
+	<!-- Style -->
+	<link rel="stylesheet" href="src/css/Dialog.css"/>
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 	<div id="dialog" title="Basic dialog" style="display: none">

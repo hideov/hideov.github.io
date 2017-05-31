@@ -1,0 +1,167 @@
+/*.popup-wrap {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0.5em;
+  padding: 10px;
+  z-index: 1000;
+  cursor: pointer;
+  background: #f2f1f1;
+}
+.popup-handle {
+  position: absolute;
+  top: 0px;
+  left: 7px;
+  right: 7px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #ebebeb;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.popup-actions {
+  position: absolute;
+  left: 0;
+  margin: 0 2px;
+  font-weight: bold;
+  line-height: 20px;
+}
+.popup-close {
+  margin: 0;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 4px;
+  left: -2px;
+}
+.popup-title {
+  display: table;
+  margin: 0px auto;
+  font-family: "Lucida Sans Unicode", sans-serif;
+  text-transform: lowercase;
+  color: white;
+  text-shadow:    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px  1px 0 #000,
+    1px  1px 0 #000;
+}
+.popup-content {
+  position: absolute;
+  top: 20px;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+.popup-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  background-color: green;
+}
+.popup-iframe-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  background-color: black;
+  z-index: -1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";        IE 8
+  filter: alpha(opacity=0);   IE 5-7
+  -moz-opacity: 0;           Netscape
+  -khtml-opacity: 0;         Safari 1.x
+  opacity: 0;                Good browsers
+}*/
+
+
+.popup-wrap {
+  position: absolute;
+  /*border: 1px solid;*/
+  border-radius: 4px;
+  /*padding: 0.5em;*/
+  padding: 10px;
+  z-index: 1000;
+  cursor: pointer;
+  background: #f2f1f1;
+}
+
+.popup-actions {
+  position: absolute;
+  left: 0;
+  margin: 0 2px;
+  font-weight: bold;
+  line-height: 20px;
+}
+.popup-close {
+  margin: 0;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 2px;
+  left: 10px;
+}
+.popup-title {
+  display: table;
+  margin: 0px auto;
+  text-transform: lowercase;
+  color: white;
+  text-shadow:    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px  1px 0 #000,
+    1px  1px 0 #000;
+}
+.popup-content {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  border-radius: 2px;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+.popup-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 2px;
+  margin: 0;
+  /*background-color: green;*/
+}
+.popup-iframe-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  background-color: black;
+  z-index: -1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";       /* IE 8 */
+  filter: alpha(opacity=0);  /* IE 5-7 */
+  -moz-opacity: 0;          /* Netscape */
+  -khtml-opacity: 0;        /* Safari 1.x */
+  opacity: 0;               /* Good browsers */
+}
