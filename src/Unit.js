@@ -48,10 +48,6 @@ Unit.prototype.moveTowards = function (x, y) {
       self.findingPath = false;
       // if no path found, try to get close
       if (path === null || path.length === 0) {
-        // var tween = game.add.tween(self.obj)
-        //   .to({tint: 0xFF0000}, 400, "Linear")
-        //   .to({tint: 0xFFFFFF}, 400, "Linear");
-        // tween.start();
         // move south of the object if you are not there
         console.log(x,y+1);
         console.log(self.x, self.y)
