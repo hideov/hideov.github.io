@@ -75,6 +75,7 @@ BasicGame.Game.prototype = {
 
     // load map elements
     new Building(128,192);
+    new Building(512,192);
     // load hero
     hero = new Unit(00, 00, 'hero');
 

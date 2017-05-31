@@ -33,11 +33,8 @@ Map.prototype.getCurrentTilemap = function (cb) {
     var y = Math.floor(buildings[id].obj.y/this.delta);
     var w = Math.floor(buildings[id].obj.width/this.delta);
     var h = Math.floor(buildings[id].obj.height/this.delta);
-    for (var i = 0; i <= w/2+1; i++) {
-      for (var j = 0; j <= h/2+1; j++) {
-        tilemap[y-j][x-i] = 1;
-        tilemap[y-j][x+i] = 1;
-        tilemap[y+j][x-i] = 1;
+    for (var i = 0; i < w; i++) {
+      for (var j = 0; j < h; j++) {
         tilemap[y+j][x+i] = 1;
       }
     }

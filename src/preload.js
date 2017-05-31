@@ -13,7 +13,7 @@ var preloadSprites = function (game) {
   game.load.image('dbg_grass_tile', 'asset/terrain/dbg_grass_tile.png');
 
   // buildings
-  game.load.image('oak_lab', 'asset/buildings/oak_lab.png');
+  game.load.image('oak_lab', 'asset/buildings/gbc_gym.png');
 
   // pokemon
   game.load.image('bulbasaur', 'asset/units/bulbasaur.png');
