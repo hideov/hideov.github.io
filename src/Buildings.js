@@ -12,6 +12,5 @@ Building.prototype.global = buildings;
 
 // Override init - so far not needed
 // Building.prototype.init = function (x, y, kind) {
-//   var id = Obj.prototype.init.apply(this, arguments);
-//   return id;
+//   retrn Obj.prototype.init.apply(this, arguments);
 // };

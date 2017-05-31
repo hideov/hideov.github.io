@@ -12,12 +12,9 @@ Unit.prototype.global = units;
 
 // Override init
 Unit.prototype.init = function (x, y, species) {
-  var id = Obj.prototype.init.apply(this, arguments);
-
   this.destination = { 'x': undefined, 'y': undefined };
   this.findingPath = false;
-
-  return id;
+  return Obj.prototype.init.apply(this, arguments);
 };
 
 Unit.prototype.moveTowards = function (x, y) {
