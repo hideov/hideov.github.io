@@ -47,7 +47,9 @@ Unit.prototype.moveTowards = function (x, y) {
       // if no path found, try to get close
       if (path === null || path.length === 0) {
         // move south of the object if you are not there
-        if (self.destination.x !== self.x || self.destination.y+1 !== self.y) {
+        if (!(self.destination.x === self.x
+            && (self.destination.y === self.y
+                || self.destination.y+1 === self.y))) {
           // these below are pixel distances, they come from clicks
           self.moveTowards(x, y + map.delta);
         }

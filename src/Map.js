@@ -7,7 +7,6 @@ Map.prototype.init = function () {
   this.width = game.width;
   this.height = game.height;
   this.delta = game.delta; // must divide gcd(width, height)
-  console.log(this.width, this.height, this.delta);
 
   // setting background (should be a "loadlevel" function)
   tilesprite = game.add.tileSprite(0, 0, this.width, this.height, 'dbg_grass_tile');
