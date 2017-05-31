@@ -2,7 +2,6 @@ var factories = {
   oak_lab: {
     name: 'oak\'s',
     sprite: 'oak_lab',
-    pokemon: ['bulbasaur', 'squirtle'],
     onClick: function (x, y) {
       // for (var id in units) {
       //   units[id].moveTowards(x,y+100);
@@ -39,5 +38,20 @@ var factories = {
         // },
         // pokedex['squirtle'].sprite);
     }
+  },
+};
+
+var pokedex = {
+  bulbasaur: {
+    name: 'Bulbasaur',
+    sprite: 'bulbasaur'
+  },
+  squirtle: {
+    name: 'Squirtle',
+    sprite: 'squirtle'
+  },
+  hero: {
+    name: 'Hero',
+    sprite: 'gbc_hero'
   },
 };
