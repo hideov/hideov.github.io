@@ -13,3 +13,12 @@ var randId = function () {
 
   return r;
 };
+
+// Check if Object.create native implementation available
+if (typeof Object.create !== 'function') {
+  Object.create = function (o) {
+    function F() {}  // empty constructor
+    F.prototype = o; // set base object as prototype
+    return new F();  // return empty object with right [[Prototype]]
+  };
+}

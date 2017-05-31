@@ -74,8 +74,8 @@ BasicGame.Game.prototype = {
     unitsGrp.setAll('body.collideWorldBounds', true);
 
     // load map elements
-    new Building(128,192);
-    new Building(512,192);
+    new Building(128,192, 'oak_lab');
+    new Building(512,192, 'oak_lab');
     // load hero
     hero = new Unit(00, 00, 'hero');
 

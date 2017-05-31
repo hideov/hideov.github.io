@@ -1,34 +1,24 @@
-
+// Inherit from Obj
 Unit = function () {
-  // return this.init.call(this, arguments);
-  return this.init(arguments[0], arguments[1], arguments[2]);
-};
+  Obj.apply(this, arguments);
+}
+Unit.prototype = Object.create(Obj.prototype);
+Unit.prototype.constructor = Unit;
 
+// Init specific lists
+Unit.prototype.factory = pokedex;
+Unit.prototype.grp = unitsGrp;
+Unit.prototype.global = units;
+
+// Override init
 Unit.prototype.init = function (x, y, species) {
-  this.id = randId();
-  var self = this;
-  var poke = pokedex[species];
-  this.name = poke.name;
-  this.selected = false;
+  var id = Obj.prototype.init.apply(this, arguments);
+
   this.destination = { 'x': undefined, 'y': undefined };
-
-  // now the phaser part
-  this.obj = game.add.sprite(x,y,poke.sprite, undefined, unitsGrp);
-  this.obj.immovable = false;
-  // this.obj.anchor.set(0.5);
-  this.obj.inputEnabled = true;
-  this.obj.events.onInputDown.add(function () { return self.onClick(); }, this);
-  this.obj.logicalPtr = this;
-  game.physics.arcade.enable(this.obj);
-
-  // pathfinder
   this.findingPath = false;
 
-  // returns
-  units[this.id] = this;
-  return this.id;
+  return id;
 };
-
 
 Unit.prototype.moveTowards = function (x, y) {
   if (this.findingPath) {
@@ -81,9 +71,4 @@ Unit.prototype.moveTowards = function (x, y) {
       self.findingPath = false;
     });
   easystar.calculate();
-};
-
-
-Unit.prototype.onClick = function () {
-  
 };
