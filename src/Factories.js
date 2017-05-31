@@ -3,9 +3,9 @@ var factories = {
     name: 'oak\'s',
     sprite: 'oak_lab',
     onClick: function (x, y) {
-        $( "#dialog" ).dialog();
-        // stop game from listening until closed current dialog
-        
+      // dialog should show up after building reached. add event list
+      $( "#dialog" ).dialog();
+      // stop game from listening until closed current dialog
     }
   },
 };
