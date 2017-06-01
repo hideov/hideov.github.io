@@ -4,8 +4,8 @@
   //  We did it in a window.onload event, but you can do it anywhere (requireJS load, anonymous function, jQuery dom ready, - whatever floats your boat)
   //  We're using a game size of 640 x 480 here, but you can use whatever you feel makes sense for your game of course.
   var delta = 64;
-  var width = Math.floor(jQuery(window).width()/delta)*delta;
-  var height = Math.floor(jQuery(window).height()/delta)*delta;
+  var width = Math.floor((jQuery(window).width()-2*84)/delta)*delta;
+  var height = Math.floor((jQuery(window).height()-2*70)/delta)*delta;
 
   var game = new Phaser.Game(width, height, Phaser.AUTO, 'game');
   game.delta = delta;

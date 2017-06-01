@@ -1,0 +1,78 @@
+body {
+  background-color: black;
+}
+
+#wrapper {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* We tell all items to be 100% width */
+#top, #mid, #bottom {
+  display: flex;
+  flex-flow: row;
+}
+
+.centre {
+  flex-grow: 1;
+}
+
+#top {
+  min-height: 59px;
+}
+
+#bottom {
+  min-height: 54px;
+}
+
+.left, .right {
+  width: 84px;
+}
+
+#mid {
+  flex: 1 100%;
+}
+
+#top .left {
+  background-image: url('/asset/ui/frame/top-left.png');
+}
+
+#top .centre {
+  background-image: url('/asset/ui/frame/top-bg.png');
+}
+
+#top .right {
+  background-image: url('/asset/ui/frame/top-right.png');
+}
+
+#mid .left {
+  background: url('/asset/ui/frame/mid-left.png') no-repeat, url('/asset/ui/frame/left-bg.png');
+
+}
+
+#mid .centre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mid .right {
+  background-image: url('/asset/ui/frame/right-bg.png');
+}
+
+#bottom .left {
+  background-image: url('/asset/ui/frame/bottom-left.png');
+}
+
+#bottom .centre {
+  background: url('/asset/ui/frame/bottom-centre.png') no-repeat, url('/asset/ui/frame/bottom-bg.png');
+}
+
+#bottom .right {
+  background-image: url('/asset/ui/frame/bottom-right.png');
+}
