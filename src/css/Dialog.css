@@ -1,24 +1,38 @@
+
 .popup-wrap {
   position: absolute;
-  border: 1px solid;
+  display: flex;
+  flex-flow: column;
+  /*border: 1px solid;
   border-radius: 10px;
   padding: 0.5em;
-  padding: 10px;
+  padding: 10px;*/
   z-index: 1000;
   cursor: pointer;
-  background: #f2f1f1;
+  /*background: #f2f1f1;*/
 }
+
+/* We tell all items to be 100% width */
+.popup-handle, .popup-mid, .popup-footer {
+  display: flex;
+  flex-flow: row;
+}
+
+.popup-mid-centre {
+  flex-grow: 1;
+}
+
 .popup-handle {
-  position: absolute;
+  /*position: absolute;
   top: 0px;
-  left: 7px;
-  right: 7px;
-  height: 20px;
-  line-height: 20px;
-  background-color: #ebebeb;
-  margin: 0;
-  padding: 0;
-  font-size: 11px;
+  left: 16px;
+  right: 16px;*/
+  min-height: 20px;
+  /*line-height: 20px;*/
+  /*background-image: url('/asset/ui/dialog/top-centre.png');*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*font-size: 11px;*/
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -27,10 +41,72 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.popup-footer {
+  min-height: 16px;
+}
+
+.popup-handle-left,
+.popup-handle-right,
+.popup-mid-left,
+.popup-mid-right,
+.popup-footer-left,
+.popup-footer-right {
+  width: 16px;
+}
+
+.popup-mid {
+  flex: 1 100%;
+}
+
+.popup-handle-left {
+  background-image: url('/asset/ui/dialog/top-left.png');
+}
+
+.popup-handle-centre {
+  flex-grow: 1;
+  background-image: url('/asset/ui/dialog/top-centre.png');
+}
+
+.popup-handle-right {
+  background-image: url('/asset/ui/dialog/top-right.png');
+}
+
+.popup-mid-left {
+  background: url('/asset/ui/dialog/mid-left.png');
+}
+
+.popup-mid-centre {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-mid-right {
+  background-image: url('/asset/ui/dialog/mid-right.png');
+}
+
+.popup-footer-left {
+  background-image: url('/asset/ui/dialog/bottom-left.png');
+}
+
+.popup-footer-centre {
+  flex-grow: 1;
+  background: url('/asset/ui/dialog/bottom-centre.png');
+}
+
+.popup-footer-right {
+  background-image: url('/asset/ui/dialog/bottom-right.png');
+}
+
+
 .popup-actions {
   position: absolute;
-  left: 0;
-  margin: 0 2px;
+  right: 0;
+  bottom: 0;
+  margin: 0 50px 40px 0;
+  z-index: 2000;
   font-weight: bold;
   line-height: 20px;
 }
@@ -56,17 +132,17 @@
 .popup-content {
   position: absolute;
   top: 20px;
-  left: 7px;
-  right: 7px;
-  bottom: 7px;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
   background-color: white;
-  padding: 0;
+  padding: 1px 4px 4px 1px;
   margin: 0;
 }
 .popup-iframe {
-  position: absolute;
+  /*position: absolute;
   top: 0;
-  left: 0;
+  left: 0;*/
   width: 100%;
   height: 100%;
   border: 0;

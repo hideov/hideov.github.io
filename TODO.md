@@ -17,5 +17,15 @@ Uncaught TypeError: Cannot read property 'base' of null
 
 
 
-Add responsive game boy pocket border
-Make site responsive, by repositioning buildings and resizing canvas and tilemap
+
+catch "it does not fit" exceptions for small screens!
+
+Add a loading graphic while resizing
+
+to have 5px black border inside change top/bottom height altered, and no-repeat
+background
+
+
+add a check for resolution on startup, and act accordingly
+
+custom dialog scrollbar

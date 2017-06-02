@@ -13,66 +13,66 @@ body {
 }
 
 /* We tell all items to be 100% width */
-#top, #mid, #bottom {
+.frame #top, .frame #mid, .frame #bottom {
   display: flex;
   flex-flow: row;
 }
 
-.centre {
+.frame .centre {
   flex-grow: 1;
 }
 
-#top {
+.frame #top {
   min-height: 59px;
 }
 
-#bottom {
+.frame #bottom {
   min-height: 54px;
 }
 
-.left, .right {
+.frame .left, .frame .right {
   width: 84px;
 }
 
-#mid {
+.frame #mid {
   flex: 1 100%;
 }
 
-#top .left {
+.frame #top .left {
   background-image: url('/asset/ui/frame/top-left.png');
 }
 
-#top .centre {
+.frame #top .centre {
   background-image: url('/asset/ui/frame/top-bg.png');
 }
 
-#top .right {
+.frame #top .right {
   background-image: url('/asset/ui/frame/top-right.png');
 }
 
-#mid .left {
+.frame #mid .left {
   background: url('/asset/ui/frame/mid-left.png') no-repeat, url('/asset/ui/frame/left-bg.png');
 
 }
 
-#mid .centre {
+.frame #mid .centre {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#mid .right {
+.frame #mid .right {
   background-image: url('/asset/ui/frame/right-bg.png');
 }
 
-#bottom .left {
+.frame #bottom .left {
   background-image: url('/asset/ui/frame/bottom-left.png');
 }
 
-#bottom .centre {
+.frame #bottom .centre {
   background: url('/asset/ui/frame/bottom-centre.png') no-repeat, url('/asset/ui/frame/bottom-bg.png');
 }
 
-#bottom .right {
+.frame #bottom .right {
   background-image: url('/asset/ui/frame/bottom-right.png');
 }

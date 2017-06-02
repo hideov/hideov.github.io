@@ -29,7 +29,6 @@ Dialog = function (url, target, options)
     return;
   this.opts.parent.openedFolders[target] = true;
 
-
   this.id = Math.floor(20000 * Math.random());
 //  var close = "jQuery('#" + this.id + "').remove(); openedFolders." + target + "=false;";
   this.el = document.createElement('div');
@@ -40,8 +39,37 @@ Dialog = function (url, target, options)
   this.el.style.left = this.opts.l + "px";
   this.el.style.display = "none";
 
- var handle = document.createElement('div');
- handle.className = "popup-handle";
+
+  var handle = document.createElement('div');
+  handle.className = "popup-handle popup-draggable";
+  var handleLeft = document.createElement('div');
+  handleLeft.className = "popup-handle-left";
+  var handleCentre = document.createElement('div');
+  handleCentre.className = "popup-handle-centre";
+  var handleRight = document.createElement('div');
+  handleRight.className = "popup-handle-right";
+
+  var mid = document.createElement('div');
+  mid.className = "popup-mid";
+  var midLeft = document.createElement('div');
+  midLeft.className = "popup-mid-left popup-draggable";
+  var midCentre = document.createElement('div');
+  midCentre.className = "popup-mid-centre";
+  var midRight = document.createElement('div');
+  midRight.className = "popup-mid-right popup-draggable";
+
+  var footer = document.createElement('div');
+  footer.className = "popup-footer popup-draggable";
+  var footerLeft = document.createElement('div');
+  footerLeft.className = "popup-footer-left";
+  var footerCentre = document.createElement('div');
+  footerCentre.className = "popup-footer-centre";
+  var footerRight = document.createElement('div');
+  footerRight.className = "popup-footer-right";
+
+
+
+  // action buttons
   var actions = document.createElement('div');
   actions.className = "popup-actions";
   var close = document.createElement('img');
@@ -51,9 +79,10 @@ Dialog = function (url, target, options)
   actions.onclick = function () {
     self.close();
   };
-  var title = document.createElement('div');
-  title.className = "popup-title";
-  title.innerText = this.opts.title;
+
+  // var title = document.createElement('div');
+  // title.className = "popup-title";
+  // title.innerText = this.opts.title;
   var content = document.createElement('div');
   content.className = "popup-content";
   this.iframe = document.createElement('iframe');
@@ -76,24 +105,26 @@ Dialog = function (url, target, options)
   cover.className = "popup-iframe-cover";
 
   content.appendChild(this.iframe);
+  // action buttons
   content.appendChild(cover);
   actions.appendChild(close);
   handle.appendChild(actions);
-  handle.appendChild(title);
+  // handle.appendChild(title);
+  midCentre.appendChild(content);
+
+  // structure
+  handle.appendChild(handleLeft);
+  handle.appendChild(handleCentre);
+  handle.appendChild(handleRight);
+  mid.appendChild(midLeft);
+  mid.appendChild(midCentre);
+  mid.appendChild(midRight);
+  footer.appendChild(footerLeft);
+  footer.appendChild(footerCentre);
+  footer.appendChild(footerRight);
   this.el.appendChild(handle);
-  this.el.appendChild(content);
-
-
-//  this.el.innerHTML += '<div class="popup-handle"> \
-//                          <div class="popup-actions"><span onclick="' + close + '">X</span>&nbsp;<span>Y</span></div> \
-//                          <div class="popup-title">This is a test popup</div> \
-//                        </div> \
-//                        <div class="popup-content"> \
-//                          <iframe class="popup-iframe" src="' + this.url + '" name="' + this.target + '"></iframe> \
-//                          <div class="popup-iframe-cover"></div> \
-//                        </div>';
-
-
+  this.el.appendChild(mid);
+  this.el.appendChild(footer);
 
   this.el.id = this.id;
 
@@ -111,19 +142,19 @@ Dialog.prototype.popupise = function ()
 {
   var self = this;
   self.opts.parent.jQuery(self.el)
-          .resizable({
-            minHeight: 150,
-            minWidth: 150,
-            start: function (event, ui) {
-              self.opts.parent.jQuery(".popup-iframe-cover").css('z-index', 3000);
-            },
-            stop: function (event, ui) {
-              self.opts.parent.jQuery(".popup-iframe-cover").css('z-index', -1);
-            }
-          })
+          // .resizable({
+          //   minHeight: 150,
+          //   minWidth: 150,
+          //   start: function (event, ui) {
+          //     self.opts.parent.jQuery(".popup-iframe-cover").css('z-index', 3000);
+          //   },
+          //   stop: function (event, ui) {
+          //     self.opts.parent.jQuery(".popup-iframe-cover").css('z-index', -1);
+          //   }
+          // })
           .draggable({
             iframeFix: true,
-           handle: "div.popup-handle",
+            handle: "div.popup-draggable",
             stack: ".floating"
           })
           .bind("click", function (e) {

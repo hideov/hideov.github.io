@@ -6,7 +6,8 @@ var factories = {
       // dialog should show up after building reached. add event list
       //    options = 'scrollbars=yes,width=' + w + ',height=' + h + ',left=' + posX + ',top=' + posY;
       //    var options = {w: w, h: h, l: posX, t: posY, title: title};
-      var newChildWindow = new Dialog('/content/test.html', "test name", undefined);
+      // var newChildWindow = new Dialog('/content/test.html', "test name", undefined);
+      Dialog('/content/test.html', "test name", undefined);
       // $( "#dialog" ).dialog();
       // stop game from listening until closed current dialog
     }

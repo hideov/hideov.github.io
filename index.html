@@ -4,24 +4,11 @@
 	<meta charset="UTF-8" />
 	<title>LOL</title>
 	<!-- Libraries -->
-  <script type="text/javascript" src="lib/phaser.min.js"></script>
   <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="lib/easystar-0.4.1.min.js"></script>
-
-	<!-- Source -->
-  <script type="text/javascript" src="src/utils.js"></script>
-	<script type="text/javascript" src="src/preload.js"></script>
 	<script type="text/javascript" src="src/Dialog.js"></script>
-	<script type="text/javascript" src="src/Object.js"></script>
-  <script type="text/javascript" src="src/Factories.js"></script>
-  <script type="text/javascript" src="src/Game.js"></script>
-	<script type="text/javascript" src="src/UI.js"></script>
-	<script type="text/javascript" src="src/Buildings.js"></script>
-  <script type="text/javascript" src="src/Map.js"></script>
-  <script type="text/javascript" src="src/Unit.js"></script>
-  <script type="text/javascript" src="src/app.js"></script> <!-- Last! -->
+
 
 	<!-- Style -->
 	<link rel="stylesheet" href="src/css/Dialog.css"/>
@@ -30,31 +17,65 @@
     body {
       margin: 0;
     }
+		#game-iframe {
+			border: 0;
+			flex: 1;
+			min-height: 100%;
+		}
   </style>
+	<script type="text/javascript">
+	(function (){
+		var rtime;
+		var timeout = false;
+		var delta = 200;
+		function resizeend () {
+	    if (new Date() - rtime < delta) {
+        setTimeout(resizeend, delta);
+	    } else {
+        timeout = false;
+        document.getElementById("game-iframe").contentDocument.location.reload(true);
+	    }
+		}
+		$(window).resize(function (ev) {
+	    rtime = new Date();
+	    if (timeout === false) {
+        timeout = true;
+        setTimeout(resizeend, delta);
+	    }
+		});
+
+		window._Dialog = function (args) {
+	    // save me in a global list maybe
+			var parsed = [undefined]; // don't know why need this.
+			for (var k in Object.keys(args)) {
+				parsed[parseInt(k)+1] = args[k];
+			}
+			return new (Function.prototype.bind.apply(Dialog, parsed));
+	  }
+	})();
+	</script>
 </head>
 <body>
 
-<div id="wrapper">
-	<div id="top">
-		<div class="left"></div>
+<div id="wrapper" class="frame">
+	<div id="top" class="frame">
+		<div class="frame left"></div>
 		<div class="centre"></div>
 		<div class="right"></div>
 	</div>
-	<div id="mid">
-		<div class="left"></div>
-		<div id="game" class="centre"></div>
-		<div class="right"></div>
+	<div id="mid" class="frame">
+		<div class="frame left"></div>
+		<div class="frame centre">
+			<iframe id="game-iframe" src="/game.html"></iframe>
+		</div>
+		<div class="frame right"></div>
 	</div>
-	<div id="bottom">
-		<div class="left"></div>
-		<div class="centre"></div>
-		<div class="right"></div>
+	<div id="bottom" class="frame">
+		<div class="frame left"></div>
+		<div class="frame centre"></div>
+		<div class="frame right"></div>
 	</div>
 </div>
-
-	<div id="dialog" title="Basic dialog" style="display: none">
-	  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-	</div>
 
 </body>
 </html>
