@@ -14,7 +14,8 @@
 
     //  Add the States your game has.
     //  You don't have to do this in the html, it could be done in your Game state too, but for simplicity I'll keep it here.
-    game.state.add('Game', BasicGame.Game);
+    basicGame = new BasicGame(game);
+    game.state.add('Game', basicGame);
 
     //  Now start the Game state.
     game.state.start('Game');

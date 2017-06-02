@@ -4,12 +4,12 @@ function padDigits(number, digits) {
 
 var randId = function () {
   var r;
-  var len = 16;
+  var len = 32;
 
-  do {
+  // do {
     r = Math.floor(Math.random() * Math.pow(10,len));
     r = padDigits(r,len);
-  } while (r in units || r in buildings);
+  // } while (r in units || r in buildings);
 
   return r;
 };

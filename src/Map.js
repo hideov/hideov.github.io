@@ -1,15 +1,16 @@
 
-Map = function () {
+Map = function (baseGame) {
+  this.baseGame = baseGame;
   this.init();
 };
 
 Map.prototype.init = function () {
-  this.width = game.width;
-  this.height = game.height;
-  this.delta = game.delta; // must divide gcd(width, height)
+  this.width = this.baseGame.game.width;
+  this.height = this.baseGame.game.height;
+  this.delta = this.baseGame.game.delta; // must divide gcd(width, height)
 
   // setting background (should be a "loadlevel" function)
-  tilesprite = game.add.tileSprite(0, 0, this.width, this.height, 'gbc_grass_tile');
+  this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(0, 0, this.width, this.height, 'gbc_grass_tile');
 };
 
 Map.prototype.getCurrentTilemap = function (cb) {
@@ -19,20 +20,21 @@ Map.prototype.getCurrentTilemap = function (cb) {
     tilemap[j].fill(0);
   }
 
-  for (var id in units) { // should be done over all physical sprites, and implementing sizes
-    if (units[id].name === "Hero") {
+  for (var id in this.baseGame.units) { // should be done over all physical sprites, and implementing sizes
+    if (this.baseGame.units[id] === this.baseGame.hero) {
+      // hero does not appear in tilemap, otherwise it could not move!
       continue;
     }
-    var x = Math.floor(units[id].obj.x/this.delta);
-    var y = Math.floor(units[id].obj.y/this.delta);
+    var x = Math.floor(this.baseGame.units[id].obj.x/this.delta);
+    var y = Math.floor(this.baseGame.units[id].obj.y/this.delta);
     tilemap[y][x] = 1;
   }
 
-  for (var id in buildings) {
-    var x = Math.floor(buildings[id].obj.x/this.delta);
-    var y = Math.floor(buildings[id].obj.y/this.delta);
-    var w = Math.floor(buildings[id].obj.width/this.delta);
-    var h = Math.floor(buildings[id].obj.height/this.delta);
+  for (var id in this.baseGame.buildings) {
+    var x = Math.floor(this.baseGame.buildings[id].obj.x/this.delta);
+    var y = Math.floor(this.baseGame.buildings[id].obj.y/this.delta);
+    var w = Math.floor(this.baseGame.buildings[id].obj.width/this.delta);
+    var h = Math.floor(this.baseGame.buildings[id].obj.height/this.delta);
     for (var i = 0; i < w; i++) {
       for (var j = 0; j < h; j++) {
         tilemap[y+j][x+i] = 1;

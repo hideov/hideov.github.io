@@ -3,27 +3,34 @@
 /* global Phaser */
 // create BasicGame Class
 
-var game;
-var tilesprite;
-var buildingsGrp;
-var unitsGrp;
-var that;
-var buildings = [];
-var units = [];
-var hero;
-var constructing = false;
-var selected = [];
-var map;
-var ui;
-var factories;
-
-
 // create Game function in BasicGame
-BasicGame = {};
-BasicGame.Game = function (game) {};
+BasicGame = function (game) {
+  this.game = game;
+  this.tilesprite;
+  this.buildingsGrp;
+  this.unitsGrp;
+  this.buildings = [];
+  this.units = [];
+  this.hero;
+  this.constructing = false;
+  this.map;
+  this.ui;
+  this.factories = factories;
+  this.pokedex = pokedex;
+
+  // point globals to corresponding object
+  Building.prototype.factory = this.factories;
+  Building.prototype.grp = this.buildingsGrp;
+  Building.prototype.global = this.buildings;
+
+  // Init specific lists
+  Unit.prototype.factory = this.pokedex;
+  Unit.prototype.grp = this.unitsGrp;
+  Unit.prototype.global = this.units;
+};
 
 // set Game function prototype
-BasicGame.Game.prototype = {
+BasicGame.prototype = {
 
   init: function () {
     this.input.maxPointers = 1;
@@ -35,9 +42,6 @@ BasicGame.Game.prototype = {
     this.scale.setResizeCallback(this.gameResized, this);
     this.scale.updateLayout(true);
     this.scale.refresh();
-
-    that = this;
-    game = this.game;
   },
 
   preload: function () {
@@ -45,54 +49,48 @@ BasicGame.Game.prototype = {
   },
 
   create: function () {
-    map = new Map();
-    ui = new UI();
+    this.map = new Map(this);
+    this.ui = new UI(this);
 
     // global click listeners
-    game.input.onDown.add(function () {
-      if (game.input.activePointer.rightButton.isDown) {
-        ui.emitOnClick('r');
+    this.game.input.onDown.add(function () {
+      if (this.game.input.activePointer.rightButton.isDown) {
+        this.ui.emitOnClick('r');
       }
-      if (game.input.activePointer.leftButton.isDown) {
-        ui.emitOnClick('l');
+      if (this.game.input.activePointer.leftButton.isDown) {
+        this.ui.emitOnClick('l');
       }
     }, this);
 
     // prevent browser right click on canvas
-    game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
+    this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
 
     // start physics
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 
     // initialise groups for units and buildings
-    buildingsGrp = game.add.group();
-    buildingsGrp.enableBody = true;
+    this.buildingsGrp = this.game.add.group();
+    this.buildingsGrp.enableBody = true;
 
-    unitsGrp = game.add.physicsGroup();
-    unitsGrp.enableBody = true;
-    unitsGrp.setAll('body.collideWorldBounds', true);
+    this.unitsGrp = this.game.add.physicsGroup();
+    this.unitsGrp.enableBody = true;
+    this.unitsGrp.setAll('body.collideWorldBounds', true);
 
     // load map elements
-    new Building(2,3, 'oak_lab');
-    new Building(8,3, 'oak_lab');
+    new Building(this, 2,3, 'oak_lab');
+    new Building(this, 8,3, 'oak_lab');
     // load hero
-    hero = new Unit(0, 0, 'hero');
+    this.hero = new Unit(this, 0, 0, 'hero');
 
     // prepare input reactions
-    game.input.onDown.add(this.click, this);
+    this.game.input.onDown.add(this.click, this);
   },
 
   update: function () {
-    game.physics.arcade.collide(unitsGrp, unitsGrp, this.unitsCollision);
+    // show popup on collisions!!!
+    // game.physics.arcade.collide(this.unitsGrp, this.unitsGrp, this.unitsCollision);
 
-
-    // for (var id in units) {
-    //     if (game.input.mousePointer.isDown) {
-    //             console.log(units);
-    //             units[id].moveTowards(game.input.x, game.input.y);
-    //     }
-    // }
   },
 
   render: function () {
@@ -101,6 +99,6 @@ BasicGame.Game.prototype = {
   click: function (pointer) {
     // units[id].moveTowards(pointer.x, pointer.y);
     // console.log("click "+ Math.random())
-    hero.moveTowards(game.input.x, game.input.y);
+    this.hero.moveTowards(this.game.input.x, this.game.input.y);
   },
 };

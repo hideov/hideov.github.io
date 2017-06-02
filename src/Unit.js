@@ -5,11 +5,6 @@ Unit = function () {
 Unit.prototype = Object.create(Obj.prototype);
 Unit.prototype.constructor = Unit;
 
-// Init specific lists
-Unit.prototype.factory = pokedex;
-Unit.prototype.grp = unitsGrp;
-Unit.prototype.global = units;
-
 // Override init
 Unit.prototype.init = function (x, y, species) {
   this.destination = { 'x': undefined, 'y': undefined };
@@ -23,12 +18,12 @@ Unit.prototype.moveTowards = function (x, y) {
   }
   this.findingPath = true;
 
-  this.destination.x = Math.floor(x/map.delta);
-  this.destination.y = Math.floor(y/map.delta);
+  this.destination.x = Math.floor(x/this.baseGame.map.delta);
+  this.destination.y = Math.floor(y/this.baseGame.map.delta);
   // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
   // obtain a tilemap
-  var tm = map.getCurrentTilemap();
+  var tm = this.baseGame.map.getCurrentTilemap();
   // set up A*
   var easystar = new EasyStar.js();
   easystar.setGrid(tm);
@@ -51,7 +46,7 @@ Unit.prototype.moveTowards = function (x, y) {
             && (self.destination.y === self.y
                 || self.destination.y+1 === self.y))) {
           // these below are pixel distances, they come from clicks
-          self.moveTowards(x, y + map.delta);
+          self.moveTowards(x, y + self.baseGame.map.delta);
         }
       } else {
         // update object coordinates
@@ -60,12 +55,18 @@ Unit.prototype.moveTowards = function (x, y) {
 
         // create animation for step by step movement
         var tweens = [];
-        tweens.push(game.add.tween(self.obj)
-          .to({ x: path[0].x*map.delta, y: path[0].y*map.delta }, 10, "Linear"));
+        tweens.push(self.baseGame.game.add.tween(self.obj)
+          .to({ x: path[0].x*self.baseGame.map.delta,
+                y: path[0].y*self.baseGame.map.delta },
+              10,
+              "Linear"));
 
         for (var j = 1; j < path.length; j++) {
-          tweens.push(game.add.tween(self.obj)
-            .to({ x: path[j].x*map.delta, y: path[j].y*map.delta }, 10, "Linear"));
+          tweens.push(self.baseGame.game.add.tween(self.obj)
+            .to({ x: path[j].x*self.baseGame.map.delta,
+                  y: path[j].y*self.baseGame.map.delta },
+                10,
+                "Linear"));
           tweens[j-1].chain(tweens[j]);
         }
 

@@ -29,3 +29,5 @@ background
 add a check for resolution on startup, and act accordingly
 
 custom dialog scrollbar
+
+show dialog on collisions!!
