@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Monoid Regular';
+  /* IE9 Compat Modes */
+  src: url('/asset/fonts/Monoid/Monoid-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/asset/fonts/Monoid/Monoid-Regular.ttf') format('truetype');
+  /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Monoid Bold';
+  /* IE9 Compat Modes */
+  src: url('/asset/fonts/Monoid/Monoid-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/asset/fonts/Monoid/Monoid-Bold.ttf') format('truetype');
+  /* Safari, Android, iOS */
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Monoid Italic';
+  /* IE9 Compat Modes */
+  src: url('/asset/fonts/Monoid/Monoid-Italic.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/asset/fonts/Monoid/Monoid-Italic.ttf') format('truetype');
+  /* Safari, Android, iOS */
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Monoid Regular';
+  font-size: 12px;
+}

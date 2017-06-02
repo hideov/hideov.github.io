@@ -30,7 +30,6 @@ Dialog = function (url, target, options)
   this.opts.parent.openedFolders[target] = true;
 
   this.id = Math.floor(20000 * Math.random());
-//  var close = "jQuery('#" + this.id + "').remove(); openedFolders." + target + "=false;";
   this.el = document.createElement('div');
   this.el.className = "popup-wrap floating";
   this.el.style.width = this.opts.w + "px";
@@ -43,30 +42,29 @@ Dialog = function (url, target, options)
   var handle = document.createElement('div');
   handle.className = "popup-handle popup-draggable";
   var handleLeft = document.createElement('div');
-  handleLeft.className = "popup-handle-left";
+  handleLeft.className = "popup-handle popup-left";
   var handleCentre = document.createElement('div');
-  handleCentre.className = "popup-handle-centre";
+  handleCentre.className = "popup-handle popup-centre";
   var handleRight = document.createElement('div');
-  handleRight.className = "popup-handle-right";
+  handleRight.className = "popup-handle popup-right";
 
   var mid = document.createElement('div');
   mid.className = "popup-mid";
   var midLeft = document.createElement('div');
-  midLeft.className = "popup-mid-left popup-draggable";
+  midLeft.className = "popup-mid popup-left popup-draggable";
   var midCentre = document.createElement('div');
-  midCentre.className = "popup-mid-centre";
+  midCentre.className = "popup-mid popup-centre";
   var midRight = document.createElement('div');
-  midRight.className = "popup-mid-right popup-draggable";
+  midRight.className = "popup-mid popup-right popup-draggable";
 
   var footer = document.createElement('div');
   footer.className = "popup-footer popup-draggable";
   var footerLeft = document.createElement('div');
-  footerLeft.className = "popup-footer-left";
+  footerLeft.className = "popup-footer popup-left";
   var footerCentre = document.createElement('div');
-  footerCentre.className = "popup-footer-centre";
+  footerCentre.className = "popup-footer popup-centre";
   var footerRight = document.createElement('div');
-  footerRight.className = "popup-footer-right";
-
+  footerRight.className = "popup-footer popup-right";
 
 
   // action buttons
@@ -105,7 +103,6 @@ Dialog = function (url, target, options)
   cover.className = "popup-iframe-cover";
 
   content.appendChild(this.iframe);
-  // action buttons
   content.appendChild(cover);
   actions.appendChild(close);
   handle.appendChild(actions);
@@ -129,11 +126,7 @@ Dialog = function (url, target, options)
   this.el.id = this.id;
 
   this.opts.parent.document.body.appendChild(this.el);
-  // jQuery(this.el).position({
-  //   my: "left top",
-  //   at: "left+" + this.opts.l + " top+" + this.opts.t,UI
-  //   of: this.opts.parent
-  // });
+
   return this.popupise();
   this.closed = false;
 };
