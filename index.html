@@ -39,27 +39,27 @@
 		}
   </style>
 	<script type="text/javascript">
-	(function (){
-		var rtime;
-		var timeout = false;
-		var delta = 150;
-		function resizeend () {
-	    if (new Date() - rtime < delta) {
-        setTimeout(resizeend, delta);
-	    } else {
-        timeout = false;
-				reboot();
-	    }
-		}
-		$(window).resize(function (ev) {
-	    rtime = new Date();
-	    if (timeout === false) {
-        timeout = true;
-        setTimeout(resizeend, delta);
-	    }
-		});
-
-	})();
+	// (function (){
+	// 	var rtime;
+	// 	var timeout = false;
+	// 	var delta = 150;
+	// 	function resizeend () {
+	//     if (new Date() - rtime < delta) {
+  //       setTimeout(resizeend, delta);
+	//     } else {
+  //       timeout = false;
+	// 			reboot();
+	//     }
+	// 	}
+	// 	$(window).resize(function (ev) {
+	//     rtime = new Date();
+	//     if (timeout === false) {
+  //       timeout = true;
+  //       setTimeout(resizeend, delta);
+	//     }
+	// 	});
+	//
+	// })();
 	</script>
 </head>
 <body>
@@ -74,7 +74,6 @@
 		<div class="frame left"></div>
 		<div class="frame centre">
 			<div id="game"></div>
-			<!-- <iframe id="game-iframe" src="/game.html"></iframe> -->
 		</div>
 		<div class="frame right"></div>
 	</div>

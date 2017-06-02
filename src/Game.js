@@ -53,14 +53,15 @@ BasicGame.prototype = {
     this.ui = new UI(this);
 
     // global click listeners
-    this.game.input.onDown.add(function () {
-      if (this.game.input.activePointer.rightButton.isDown) {
-        this.ui.emitOnClick('r');
-      }
-      if (this.game.input.activePointer.leftButton.isDown) {
-        this.ui.emitOnClick('l');
-      }
-    }, this);
+    var self = this;
+    // this.game.input.onDown.add(function () {
+    //   if (this.game.input.activePointer.rightButton.isDown) {
+    //     self.ui.emitOnClick('r');
+    //   }
+    //   if (this.game.input.activePointer.leftButton.isDown) {
+    //     self.ui.emitOnClick('l');
+    //   }
+    // }, this);
 
     // prevent browser right click on canvas
     this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
@@ -89,16 +90,14 @@ BasicGame.prototype = {
 
   update: function () {
     // show popup on collisions!!!
-    // game.physics.arcade.collide(this.unitsGrp, this.unitsGrp, this.unitsCollision);
-
+    // this.game.physics.arcade.collide(this.unitsGrp, this.unitsGrp, this.unitsCollision);
   },
 
   render: function () {
   },
 
   click: function (pointer) {
-    // units[id].moveTowards(pointer.x, pointer.y);
-    // console.log("click "+ Math.random())
+    alert("asd")
     this.hero.moveTowards(this.game.input.x, this.game.input.y);
   },
 };

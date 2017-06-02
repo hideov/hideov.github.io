@@ -6,13 +6,13 @@ Dialog = function (url, target, options)
 
   // fill in missing options
   if (!this.opts.w)
-    this.opts.w = 400;
+    this.opts.w = 400; //jQuery(window).width()-200; // 400;
   if (!this.opts.h)
-    this.opts.h = 400;
+    this.opts.h = 400; //jQuery(window).height()-200; // 400;
   if (typeof this.opts.t === "undefined")
-    this.opts.t = Math.floor(200 * Math.random());
+    this.opts.t = 100; // Math.floor(200 * Math.random());
   if (typeof this.opts.l === "undefined")
-    this.opts.l = Math.floor(200 * Math.random());
+    this.opts.l = 100; // Math.floor(200 * Math.random());
   if (!this.opts.parent)
     this.opts.parent = window;
   if (!this.opts.parent.openedFolders)
@@ -128,7 +128,7 @@ Dialog = function (url, target, options)
   this.opts.parent.document.body.appendChild(this.el);
 
   return this.popupise();
-  this.closed = false;
+  // this.closed = false;
 };
 
 Dialog.prototype.popupise = function ()
