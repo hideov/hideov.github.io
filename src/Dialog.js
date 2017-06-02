@@ -6,13 +6,13 @@ Dialog = function (url, target, options)
 
   // fill in missing options
   if (!this.opts.w)
-    this.opts.w = 400; //jQuery(window).width()-200; // 400;
+    this.opts.w = jQuery(window).width() - 300; // 400;
   if (!this.opts.h)
-    this.opts.h = 400; //jQuery(window).height()-200; // 400;
+    this.opts.h = jQuery(window).height() - 200; // 400;
   if (typeof this.opts.t === "undefined")
     this.opts.t = 100; // Math.floor(200 * Math.random());
   if (typeof this.opts.l === "undefined")
-    this.opts.l = 100; // Math.floor(200 * Math.random());
+    this.opts.l = 150; // Math.floor(200 * Math.random());
   if (!this.opts.parent)
     this.opts.parent = window;
   if (!this.opts.parent.openedFolders)
@@ -71,7 +71,7 @@ Dialog = function (url, target, options)
   var actions = document.createElement('div');
   actions.className = "popup-actions";
   var close = document.createElement('img');
-  close.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH3wcLEQ0Pcmj10AAAAXJJREFUOMut1C9vFFEUBfDfvI6CBkVStaKiqNqahhCyDYLgMOBwlXwDVD9AU2TdOMbgyArapoLUYFcQ7FY1KP40IaE7NXeal2Vn2oXeZPKSee+ed+5995xCR/x59WKAdWzgXvz+js8Yl1U9mZdXdAA9x0s8wF0sxfYFfuEr3uH9LHAxA7aJN3iIOx2XNrGe4xN2yqo++QswA9sKRsU1gE0wPsxBi6zMt3iWgRX6o8lAP+B1WdWTFJtDPFoATHZuKXKHUAS7fTxB6nqsHpYwxUdsJwyw2tOz61i26yoGCWtY8f+xgrW2xLQgs3lMk6xntxYJZ/iRNfhfogmMs4QxJrdAboJxW/IIv7NhXYRZE7kjSCHuA3yZkdVNZ7CJ3IMrpYQO93B6Q9D8zCn2Wi1fvXJZ1RV2oxfTrJyubxpndyO30w+fYhuPsTxntKb4iWPsl1U96jXYzH2G2AyTvR9b38JcT3A0z7V71RHAQu/taOiyf7gEz+N+w+ZNWw4AAAAASUVORK5CYII%3D";
+  close.src = "/asset/ui/dialog/close.png";
   close.className = "popup-close";
   var self = this;
   actions.onclick = function () {
@@ -127,9 +127,14 @@ Dialog = function (url, target, options)
 
   this.opts.parent.document.body.appendChild(this.el);
 
-  return this.popupise();
+  // return this.popupise();
   // this.closed = false;
 };
+
+Dialog.prototype.fill = function () {
+  this.el.style.width = (jQuery(window).width() - 300) + "px";
+  this.el.style.height = (jQuery(window).height() - 200) + "px";
+}
 
 Dialog.prototype.popupise = function ()
 {

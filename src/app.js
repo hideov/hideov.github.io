@@ -7,7 +7,7 @@ var bootup = function () {
   var width = Math.floor((jQuery(window).width()-160)/delta)*delta;
   var height = Math.floor((jQuery(window).height()-160)/delta)*delta;
 
-  var game = new Phaser.Game(width, height, Phaser.AUTO);
+  var game = new Phaser.Game(width, height, Phaser.AUTO, 'game');
   game.delta = delta;
 
   //  Add the States your game has.
@@ -31,15 +31,3 @@ var reboot = function () {
 (function () {
   reboot();
 })();
-
-// (function () {
-//
-//   reboot();
-//   // window.GAME = bootup();
-//
-//   // window.Dialog = function () {
-//   //   // we strip args in index, using call/apply does not seem to work
-//   //   window.parent.window._Dialog(arguments);
-//   // }
-//
-// })();

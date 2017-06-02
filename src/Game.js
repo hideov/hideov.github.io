@@ -54,14 +54,14 @@ BasicGame.prototype = {
 
     // global click listeners
     var self = this;
-    // this.game.input.onDown.add(function () {
-    //   if (this.game.input.activePointer.rightButton.isDown) {
-    //     self.ui.emitOnClick('r');
-    //   }
-    //   if (this.game.input.activePointer.leftButton.isDown) {
-    //     self.ui.emitOnClick('l');
-    //   }
-    // }, this);
+    this.game.input.onDown.add(function () {
+      if (this.game.input.activePointer.rightButton.isDown) {
+        self.ui.emitOnClick('r');
+      }
+      if (this.game.input.activePointer.leftButton.isDown) {
+        self.ui.emitOnClick('l');
+      }
+    }, this);
 
     // prevent browser right click on canvas
     this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); };
@@ -97,7 +97,6 @@ BasicGame.prototype = {
   },
 
   click: function (pointer) {
-    alert("asd")
     this.hero.moveTowards(this.game.input.x, this.game.input.y);
   },
 };

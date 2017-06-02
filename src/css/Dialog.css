@@ -106,18 +106,18 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  margin: 0 50px 40px 0;
+  margin: 0 20px -1px 0;
   z-index: 2000;
   font-weight: bold;
   line-height: 20px;
 }
 .popup-close {
-  margin: 0;
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  top: 4px;
-  left: -2px;
+  /*margin: 0;*/
+  /*width: 12px;*/
+  /*height: 12px;*/
+  /*position: absolute;*/
+  /*top: 4px;*/
+  /*left: -2px;*/
 }
 .popup-title {
   display: table;
