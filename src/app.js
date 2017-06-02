@@ -31,3 +31,28 @@ var reboot = function () {
 (function () {
   reboot();
 })();
+
+// handle resize event
+(function (){
+  var rtime;
+  var timeout = false;
+  var delta = 150;
+  function resizeend () {
+    if (new Date() - rtime < delta) {
+      setTimeout(resizeend, delta);
+    } else {
+      timeout = false;
+      if (window.DIALOG) {
+        window.DIALOG.fill();
+      }
+      reboot();
+    }
+  }
+  $(window).resize(function (ev) {
+    rtime = new Date();
+    if (timeout === false) {
+      timeout = true;
+      setTimeout(resizeend, delta);
+    }
+  });
+})();
