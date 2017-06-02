@@ -1,5 +1,11 @@
 Dialog = function (url, target, options)
 {
+  // remove any previous dialogs
+  if (window.DIALOG) {
+    window.DIALOG.close();
+    window.DIALOG = this;
+  }
+
   this.url = url || "";
   this.target = target || "";
   this.opts = typeof options !== "undefined" ? options : {};
@@ -178,4 +184,5 @@ Dialog.prototype.close = function ()
   this.closed = true;
   this.opts.parent.openedFolders[this.target] = false;
   this.opts.parent.jQuery(this.el).remove();
+  delete window.DIALOG;
 };
