@@ -9,6 +9,6 @@ add a check for resolution on startup, and act accordingly
 
 custom dialog scrollbar
 
-show dialog on collisions!!
-
 try to unite buildings and units lists
+
+test when no path is available

@@ -48,7 +48,7 @@ Unit.prototype.moveTowards = function (x, y) {
           self.destination = {x: -1, y: -1};
           // remove any contact events?
           // probably need some condition when adding the event
-          self.trimEvents("no path");
+          self.trimEvents("no path"); // TODO test this
           return;
         }
         // move south of the object if you are not there
