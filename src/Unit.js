@@ -8,13 +8,14 @@ Unit.prototype.constructor = Unit;
 // Override init
 Unit.prototype.init = function (x, y, species) {
   this.destination = { 'x': undefined, 'y': undefined };
+  this.originalDestination = { 'x': undefined, 'y': undefined };
   this.findingPath = false;
   var res = Obj.prototype.init.apply(this, arguments);
   this.obj.frame = 4; // start still, facing south
   return res;
 };
 
-Unit.prototype.moveTowards = function (x, y) {
+Unit.prototype.moveTowards = function (x, y, recursiveCall) {
   if (this.findingPath) {
     return;
   }
@@ -22,6 +23,10 @@ Unit.prototype.moveTowards = function (x, y) {
 
   this.destination.x = Math.floor(x/this.baseGame.map.delta);
   this.destination.y = Math.floor(y/this.baseGame.map.delta);
+  if (!recursiveCall) {
+    this.originalDestination.x = Math.floor(x/this.baseGame.map.delta);
+    this.originalDestination.y = Math.floor(y/this.baseGame.map.delta);
+  }
   // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
   // obtain a tilemap
@@ -51,6 +56,9 @@ Unit.prototype.moveTowards = function (x, y) {
           // remove any contact events?
           // probably need some condition when adding the event
           self.trimEvents("no path"); // TODO test this
+          (self._createFrameUpdate(
+            self.originalDestination.x,
+            self.originalDestination.y))();
           return;
         }
         // move south of the object if you are not there
@@ -60,7 +68,7 @@ Unit.prototype.moveTowards = function (x, y) {
             && (self.destination.y === self.y
                 || self.destination.y+1 === self.y))) {
           // these below are pixel distances, they come from clicks
-          self.moveTowards(x, y + self.baseGame.map.delta);
+          self.moveTowards(x, y + self.baseGame.map.delta, true);
         }
       } else {
         // update object coordinates
@@ -77,7 +85,7 @@ Unit.prototype.moveTowards = function (x, y) {
                 y: path[0].y*self.baseGame.map.delta },
               150,
               "Linear");
-        t.onComplete.add(self._createFrameUpdate(path[0].x, path[0].y),self);
+        t.onStart.add(self._createFrameUpdate(path[0].x, path[0].y),self);
         t.onComplete.add(self._createPositionUpdate(path[0].x, path[0].y), self);
         tweens.push(t);
 
@@ -87,8 +95,24 @@ Unit.prototype.moveTowards = function (x, y) {
                   y: path[j].y*self.baseGame.map.delta },
                 150,
                 "Linear");
-          t.onComplete.add(self._createFrameUpdate(path[j].x, path[j].y),self);
+          t.onStart.add(self._createFrameUpdate(path[j].x, path[j].y),self);
           t.onComplete.add(self._createPositionUpdate(path[j].x, path[j].y), self);
+          if (j === path.length - 1) {
+            // t.onComplete.add(self._createFrameUpdate(path[j].x, path[j].y),self);
+            console.log("last change",
+              self.originalDestination.x,
+              self.originalDestination.y)
+            t.onComplete.add(
+              self._createFrameUpdate(
+                self.originalDestination.x,
+                self.originalDestination.y
+              ),
+              self);
+            t.onComplete.add(function () {
+              // face direction still
+              self.obj.frame = 3*Math.floor(self.obj.frame/3) + 1;
+            }, self);
+          }
           tweens.push(t);
           tweens[j-1].chain(tweens[j]);
         }
@@ -122,38 +146,37 @@ Unit.prototype._createFrameUpdate = function (x, y) {
     var W = 3;
     var E = 6;
     var N = 9;
-    if (y > self.y) {
+    if (y > self.y && Math.abs(y-self.y) > Math.abs(x-self.x)) {
       // S
       if (self.obj.frame >= S && self.obj.frame < S+3) {
-        self.obj.frame = (self.obj.frame + 1) % 3;
+        self.obj.frame = (self.obj.frame + 1) % 3 + S;
       } else {
         self.obj.frame = S;
       }
     }
-    if (x < self.x) {
+    if (x < self.x && Math.abs(y-self.y) < Math.abs(x-self.x)) {
       // W
       if (self.obj.frame >= W && self.obj.frame < W+3) {
-        self.obj.frame = (self.obj.frame + 1) % 3;
+        self.obj.frame = (self.obj.frame + 1) % 3 + W;
       } else {
         self.obj.frame = W;
       }
     }
-    if (x > self.x) {
+    if (x > self.x && Math.abs(y-self.y) < Math.abs(x-self.x)) {
       // E
       if (self.obj.frame >= E && self.obj.frame < E+3) {
-        self.obj.frame = (self.obj.frame + 1) % 3;
+        self.obj.frame = (self.obj.frame + 1) % 3 + E;
       } else {
         self.obj.frame = E;
       }
     }
-    if (y < self.y) {
+    if (y < self.y && Math.abs(y-self.y) > Math.abs(x-self.x)) {
       // N
       if (self.obj.frame >= N && self.obj.frame < N+3) {
-        self.obj.frame = (self.obj.frame + 1) % 3;
+        self.obj.frame = (self.obj.frame + 1) % 3 + N;
       } else {
         self.obj.frame = N;
       }
     }
-    console.log(self.obj.frame)
   };
 }
