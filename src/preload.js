@@ -18,5 +18,5 @@ var preloadSprites = function (game) {
   // pokemon
   game.load.image('bulbasaur', 'asset/units/bulbasaur.png');
   game.load.image('squirtle', 'asset/units/squirtle.png');
-  game.load.image('gbc_hero', 'asset/units/gbc_hero.png');
+  game.load.spritesheet('gbc_hero', 'asset/units/gbc_hero.png', 64, 64, 12);
 };

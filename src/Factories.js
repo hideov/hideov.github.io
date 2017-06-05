@@ -34,6 +34,7 @@ var pokedex = {
   },
   hero: {
     name: 'Hero',
-    sprite: 'gbc_hero'
+    sprite: 'gbc_hero',
+    frames: {w: 64, h: 64},
   },
 };

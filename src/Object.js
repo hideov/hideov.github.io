@@ -24,8 +24,15 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
 
   // see if it fits on tile map
   var tilemap = this.baseGame.map.getCurrentTilemap();
-  var w = this.baseGame.game.cache.getImage(this.model.sprite).width/this.baseGame.map.delta;
-  var h = this.baseGame.game.cache.getImage(this.model.sprite).height/this.baseGame.map.delta;
+  var w;
+  var h;
+  if (this.model.frames) {
+    w = this.model.frames.w/this.baseGame.map.delta;
+    h = this.model.frames.h/this.baseGame.map.delta;
+  } else {
+    w = this.baseGame.game.cache.getImage(this.model.sprite).width/this.baseGame.map.delta;
+    h = this.baseGame.game.cache.getImage(this.model.sprite).height/this.baseGame.map.delta;
+  }
   var itFits = true;
   for (var i = 0; i < w && itFits; i++) {
     for (var j = 0; j < h && itFits; j++) {

@@ -9,7 +9,9 @@ Unit.prototype.constructor = Unit;
 Unit.prototype.init = function (x, y, species) {
   this.destination = { 'x': undefined, 'y': undefined };
   this.findingPath = false;
-  return Obj.prototype.init.apply(this, arguments);
+  var res = Obj.prototype.init.apply(this, arguments);
+  this.obj.frame = 4; // start still, facing south
+  return res;
 };
 
 Unit.prototype.moveTowards = function (x, y) {
@@ -73,8 +75,9 @@ Unit.prototype.moveTowards = function (x, y) {
         var t = self.baseGame.game.add.tween(self.obj)
           .to({ x: path[0].x*self.baseGame.map.delta,
                 y: path[0].y*self.baseGame.map.delta },
-              10,
+              150,
               "Linear");
+        t.onComplete.add(self._createFrameUpdate(path[0].x, path[0].y),self);
         t.onComplete.add(self._createPositionUpdate(path[0].x, path[0].y), self);
         tweens.push(t);
 
@@ -82,8 +85,9 @@ Unit.prototype.moveTowards = function (x, y) {
           t = self.baseGame.game.add.tween(self.obj)
             .to({ x: path[j].x*self.baseGame.map.delta,
                   y: path[j].y*self.baseGame.map.delta },
-                10,
+                150,
                 "Linear");
+          t.onComplete.add(self._createFrameUpdate(path[j].x, path[j].y),self);
           t.onComplete.add(self._createPositionUpdate(path[j].x, path[j].y), self);
           tweens.push(t);
           tweens[j-1].chain(tweens[j]);
@@ -106,5 +110,50 @@ Unit.prototype._createPositionUpdate = function (x, y) {
   return function () {
     self.x = x;
     self.y = y;
+  };
+}
+
+Unit.prototype._createFrameUpdate = function (x, y) {
+  var self = this;
+  return function () {
+    // figure out direction first, previous frame later
+    // RELIES ON MOVING ONLY IN 4 DIRECTIONS and 3 FRAMES per direction
+    var S = 0;
+    var W = 3;
+    var E = 6;
+    var N = 9;
+    if (y > self.y) {
+      // S
+      if (self.obj.frame >= S && self.obj.frame < S+3) {
+        self.obj.frame = (self.obj.frame + 1) % 3;
+      } else {
+        self.obj.frame = S;
+      }
+    }
+    if (x < self.x) {
+      // W
+      if (self.obj.frame >= W && self.obj.frame < W+3) {
+        self.obj.frame = (self.obj.frame + 1) % 3;
+      } else {
+        self.obj.frame = W;
+      }
+    }
+    if (x > self.x) {
+      // E
+      if (self.obj.frame >= E && self.obj.frame < E+3) {
+        self.obj.frame = (self.obj.frame + 1) % 3;
+      } else {
+        self.obj.frame = E;
+      }
+    }
+    if (y < self.y) {
+      // N
+      if (self.obj.frame >= N && self.obj.frame < N+3) {
+        self.obj.frame = (self.obj.frame + 1) % 3;
+      } else {
+        self.obj.frame = N;
+      }
+    }
+    console.log(self.obj.frame)
   };
 }
