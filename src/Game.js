@@ -9,8 +9,8 @@ BasicGame = function (game) {
   this.tilesprite;
   this.buildingsGrp;
   this.unitsGrp;
-  this.buildings = [];
-  this.units = [];
+  this.buildings = {};
+  this.units = {};
   this.hero;
   this.constructing = false;
   this.map;
@@ -89,8 +89,15 @@ BasicGame.prototype = {
   },
 
   update: function () {
-    // show popup on collisions!!!
-    // this.game.physics.arcade.collide(this.unitsGrp, this.unitsGrp, this.unitsCollision);
+    // show popup on collisions!!! but we stop them away from collision point!
+    // this.game.physics.arcade.collide(this.unitsGrp, this.unitsGrp, this.unitsCollision)
+    for (var id in this.buildings) {
+      this.buildings[id].checkEvents();
+    }
+    for (var id in this.units) {
+      this.units[id].checkEvents();
+    }
+
   },
 
   render: function () {

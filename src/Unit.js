@@ -24,6 +24,8 @@ Unit.prototype.moveTowards = function (x, y) {
 
   // obtain a tilemap
   var tm = this.baseGame.map.getCurrentTilemap();
+  // remove yourself from tilemap!!
+  tm[this.y][this.x] = 0;
   // set up A*
   var easystar = new EasyStar.js();
   easystar.setGrid(tm);
@@ -41,7 +43,17 @@ Unit.prototype.moveTowards = function (x, y) {
       self.findingPath = false;
       // if no path found, try to get close
       if (path === null || path.length === 0) {
+        if (tm[self.destination.y][self.destination.x] === 0) {
+          // can't get there
+          self.destination = {x: -1, y: -1};
+          // remove any contact events?
+          // probably need some condition when adding the event
+          self.trimEvents("no path");
+          return;
+        }
         // move south of the object if you are not there
+        // if we find a 0 but still no path, it means we are an island.
+        // stop going south and fail!!!!
         if (!(self.destination.x === self.x
             && (self.destination.y === self.y
                 || self.destination.y+1 === self.y))) {
@@ -50,28 +62,49 @@ Unit.prototype.moveTowards = function (x, y) {
         }
       } else {
         // update object coordinates
-        self.x = self.destination.x;
-        self.y = self.destination.y;
+        // WRONG, or at least CONFUSING
+        // can we use tweens to do this?
+        // self.x = self.destination.x;
+        // self.y = self.destination.y;
 
         // create animation for step by step movement
         var tweens = [];
-        tweens.push(self.baseGame.game.add.tween(self.obj)
+        //tween.onComplete.add(this.theEnd, this)
+        var t = self.baseGame.game.add.tween(self.obj)
           .to({ x: path[0].x*self.baseGame.map.delta,
                 y: path[0].y*self.baseGame.map.delta },
               10,
-              "Linear"));
+              "Linear");
+        t.onComplete.add(self._createPositionUpdate(path[0].x, path[0].y), self);
+        tweens.push(t);
 
         for (var j = 1; j < path.length; j++) {
-          tweens.push(self.baseGame.game.add.tween(self.obj)
+          t = self.baseGame.game.add.tween(self.obj)
             .to({ x: path[j].x*self.baseGame.map.delta,
                   y: path[j].y*self.baseGame.map.delta },
                 10,
-                "Linear"));
+                "Linear");
+          t.onComplete.add(self._createPositionUpdate(path[j].x, path[j].y), self);
+          tweens.push(t);
           tweens[j-1].chain(tweens[j]);
         }
-
         tweens[0].start();
       }
     });
   easystar.calculate();
 };
+
+Unit.prototype.coordinate = function () {
+  if (this.x === this.destination.x && this.y === this.destination.y) {
+    return true;
+  }
+  return false;
+}
+
+Unit.prototype._createPositionUpdate = function (x, y) {
+  var self = this;
+  return function () {
+    self.x = x;
+    self.y = y;
+  };
+}

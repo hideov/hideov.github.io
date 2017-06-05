@@ -13,6 +13,7 @@ Map.prototype.init = function () {
   this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(0, 0, this.width, this.height, 'gbc_grass_tile');
 };
 
+// should maybe be caching, run on 'update' and then return that.
 Map.prototype.getCurrentTilemap = function (cb) {
   var tilemap = new Array(this.height/this.delta);
   for (var j = 0; j < tilemap.length; j++) {
@@ -20,13 +21,10 @@ Map.prototype.getCurrentTilemap = function (cb) {
     tilemap[j].fill(0);
   }
 
-  for (var id in this.baseGame.units) { // should be done over all physical sprites, and implementing sizes
-    if (this.baseGame.units[id] === this.baseGame.hero) {
-      // hero does not appear in tilemap, otherwise it could not move!
-      continue;
-    }
+  for (var id in this.baseGame.units) {
     var x = Math.floor(this.baseGame.units[id].obj.x/this.delta);
     var y = Math.floor(this.baseGame.units[id].obj.y/this.delta);
+    // assuming 1-tile sprite
     tilemap[y][x] = 1;
   }
 
@@ -50,14 +48,11 @@ Map.prototype.getCurrentTilemap = function (cb) {
 
 Map.prototype.printMap = function () {
   this.getCurrentTilemap(function (tm) {
-    console.log();
     for (var row = 0; row < tm.length; row++) {
       var line = "";
       for (var col = 0; col < tm[row].length; col++) {
         line += " "+tm[row][col];
       }
-      console.log(line);
     }
-    console.log();
   });
 };

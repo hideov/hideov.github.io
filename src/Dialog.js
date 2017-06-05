@@ -2,7 +2,9 @@ Dialog = function (url, target, options)
 {
   // remove any previous dialogs
   if (window.DIALOG) {
-    window.DIALOG.close();
+    if (typeof window.DIALOG.close === "function") {
+      window.DIALOG.close();
+    }
     window.DIALOG = this;
   }
 
