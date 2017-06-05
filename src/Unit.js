@@ -56,6 +56,7 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
           // remove any contact events?
           // probably need some condition when adding the event
           self.trimEvents("no path"); // TODO test this
+          console.log("no path")
           (self._createFrameUpdate(
             self.originalDestination.x,
             self.originalDestination.y))();
@@ -71,12 +72,6 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
           self.moveTowards(x, y + self.baseGame.map.delta, true);
         }
       } else {
-        // update object coordinates
-        // WRONG, or at least CONFUSING
-        // can we use tweens to do this?
-        // self.x = self.destination.x;
-        // self.y = self.destination.y;
-
         // create animation for step by step movement
         var tweens = [];
         //tween.onComplete.add(this.theEnd, this)
@@ -98,10 +93,6 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
           t.onStart.add(self._createFrameUpdate(path[j].x, path[j].y),self);
           t.onComplete.add(self._createPositionUpdate(path[j].x, path[j].y), self);
           if (j === path.length - 1) {
-            // t.onComplete.add(self._createFrameUpdate(path[j].x, path[j].y),self);
-            console.log("last change",
-              self.originalDestination.x,
-              self.originalDestination.y)
             t.onComplete.add(
               self._createFrameUpdate(
                 self.originalDestination.x,

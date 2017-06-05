@@ -112,12 +112,8 @@
   line-height: 20px;
 }
 .popup-close {
-  /*margin: 0;*/
-  /*width: 12px;*/
-  /*height: 12px;*/
-  /*position: absolute;*/
-  /*top: 4px;*/
-  /*left: -2px;*/
+  animation: blink 1s;
+  animation-iteration-count: infinite;
 }
 .popup-title {
   display: table;
@@ -165,4 +161,19 @@
   -moz-opacity: 0;           /* Netscape */
   -khtml-opacity: 0;         /* Safari 1.x */
   opacity: 0;                /* Good browsers */
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
