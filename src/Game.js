@@ -69,7 +69,6 @@ BasicGame.prototype = {
     // start physics
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-
     // initialise groups for units and buildings
     this.buildingsGrp = this.game.add.group();
     this.buildingsGrp.enableBody = true;

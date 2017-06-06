@@ -10,13 +10,14 @@ Unit.prototype.init = function (x, y, species) {
   this.destination = { 'x': undefined, 'y': undefined };
   this.originalDestination = { 'x': undefined, 'y': undefined };
   this.findingPath = false;
+  this.moving = false;
   var res = Obj.prototype.init.apply(this, arguments);
-  this.obj.frame = 4; // start still, facing south
+  this.obj.frame = 1; // start still, facing south
   return res;
 };
 
 Unit.prototype.moveTowards = function (x, y, recursiveCall) {
-  if (this.findingPath) {
+  if (this.findingPath || this.moving) {
     return;
   }
   this.findingPath = true;
@@ -27,9 +28,8 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
     this.originalDestination.x = Math.floor(x/this.baseGame.map.delta);
     this.originalDestination.y = Math.floor(y/this.baseGame.map.delta);
   }
-  // this.obj.rotation = game.physics.arcade.angleToXY(this.obj, x, y);
 
-  // obtain a tilemap
+  // obtain a tilemap -- maybe could avoid this on recursion
   var tm = this.baseGame.map.getCurrentTilemap();
   // remove yourself from tilemap!!
   tm[this.y][this.x] = 0;
@@ -37,7 +37,7 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
   var easystar = new EasyStar.js();
   easystar.setGrid(tm);
   easystar.setAcceptableTiles([0]);
-  // easystar.enableDiagonals();
+  // easystar.enableDiagonals(); // don't! animation relies on 4 directions
   easystar.enableCornerCutting();
 
   var self = this;
@@ -52,11 +52,8 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
       if (path === null || path.length === 0) {
         if (tm[self.destination.y][self.destination.x] === 0) {
           // can't get there
-          self.destination = {x: -1, y: -1};
-          // remove any contact events?
-          // probably need some condition when adding the event
+          // self.destination = {x: -1, y: -1};
           self.trimEvents("no path"); // TODO test this
-          console.log("no path")
           (self._createFrameUpdate(
             self.originalDestination.x,
             self.originalDestination.y))();
@@ -70,6 +67,9 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
                 || self.destination.y+1 === self.y))) {
           // these below are pixel distances, they come from clicks
           self.moveTowards(x, y + self.baseGame.map.delta, true);
+        } else {
+          self.destination.x = self.x;
+          self.destination.y = self.y;
         }
       } else {
         // create animation for step by step movement
@@ -102,11 +102,13 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
             t.onComplete.add(function () {
               // face direction still
               self.obj.frame = 3*Math.floor(self.obj.frame/3) + 1;
+              self.moving = false;
             }, self);
           }
           tweens.push(t);
           tweens[j-1].chain(tweens[j]);
         }
+        self.moving = true;
         tweens[0].start();
       }
     });
