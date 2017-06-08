@@ -36,6 +36,12 @@ var pokedex = {
     name: 'Hero',
     sprite: 'gbc_hero',
     frames: {w: 64, h: 64},
+    probability: 0.5,
+  },
+  heroine: {
+    name: 'Heroine',
+    sprite: 'gbc_heroine',
+    frames: {w: 64, h: 64},
     probability: 1.0,
   },
 };

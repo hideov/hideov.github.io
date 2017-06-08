@@ -81,7 +81,11 @@ BasicGame.prototype = {
     new Building(this, 2,3, 'oak_lab');
     new Building(this, 8,3, 'oak_lab');
     // load hero
-    this.hero = new Unit(this, 0, 0, 'hero');
+    try {
+      this.hero = new Unit(this, 0, 0, 'hero');
+    } catch (exception) { // ADD PROPER EXCEPTION TYPES
+      this.hero = new Unit(this, 0, 0, 'heroine');
+    }
 
     // prepare input reactions
     this.game.input.onDown.add(this.click, this);
