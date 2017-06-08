@@ -43,7 +43,9 @@ var reboot = function () {
     } else {
       timeout = false;
       if (window.DIALOG) {
-        window.DIALOG.fill();
+        if (typeof window.DIALOG.fill === "function") {
+          window.DIALOG.fill();
+        }
       }
       reboot();
     }

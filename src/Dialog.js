@@ -5,8 +5,8 @@ Dialog = function (url, target, options)
     if (typeof window.DIALOG.close === "function") {
       window.DIALOG.close();
     }
-    window.DIALOG = this;
   }
+  window.DIALOG = this;
 
   this.url = url || "";
   this.target = target || "";

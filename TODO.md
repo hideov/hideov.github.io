@@ -5,6 +5,8 @@ add a check for resolution on startup, and act accordingly
 
 custom dialog scrollbar
 
+dialog not resizing online
+
 try to unite buildings and units lists
 
 test when no path is available
