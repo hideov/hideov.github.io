@@ -15,8 +15,6 @@ sometimes border frame screws up when resizing.
 
 tinypng
 
-remomve hand from dialog border
-
 forward http to https
 
 fix timinga.tk https cert

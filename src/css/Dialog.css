@@ -8,7 +8,7 @@
   padding: 0.5em;
   padding: 10px;*/
   z-index: 1000;
-  cursor: pointer;
+  /*cursor: pointer;*/
   /*background: #f2f1f1;*/
 }
 
@@ -110,6 +110,7 @@
   z-index: 2000;
   font-weight: bold;
   line-height: 20px;
+  cursor: pointer;
 }
 .popup-close {
   animation: blink 1s;
