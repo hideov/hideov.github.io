@@ -10,7 +10,20 @@ Map.prototype.init = function () {
   this.delta = this.baseGame.game.delta; // must divide gcd(width, height)
 
   // setting background (should be a "loadlevel" function)
-  this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(0, 0, this.width, this.height, 'gbc_grass_tile');
+  var rnd;
+  for (var x = 0; x < this.width; x += this.delta) {
+    for (var y = 0; y < this.width; y += this.delta) {
+      rnd = this.baseGame.mt.rnd();
+      this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(
+        x,
+        y,
+        x + this.delta,
+        y + this.delta,
+        rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
+      );
+    }
+  }
+
 };
 
 // should maybe be caching, run on 'update' and then return that.

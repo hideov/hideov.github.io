@@ -11,16 +11,18 @@ Unit.prototype.init = function (x, y, species) {
   this.originalDestination = { 'x': undefined, 'y': undefined };
   this.findingPath = false;
   this.moving = false;
+  this.busy = this.findingPath || this.moving;
   var res = Obj.prototype.init.apply(this, arguments);
   this.obj.frame = 1; // start still, facing south
   return res;
 };
 
 Unit.prototype.moveTowards = function (x, y, recursiveCall) {
-  if (this.findingPath || this.moving) {
+  if (this.busy) {
     return;
   }
   this.findingPath = true;
+  this.busy = this.findingPath || this.moving;
 
   this.destination.x = Math.floor(x/this.baseGame.map.delta);
   this.destination.y = Math.floor(y/this.baseGame.map.delta);
@@ -48,6 +50,7 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
     self.destination.y,
     function( path ) {
       self.findingPath = false;
+      self.busy = self.findingPath || self.moving;
       // if no path found, try to get close
       if (path === null || path.length === 0) {
         if (tm[self.destination.y][self.destination.x] === 0) {
@@ -103,12 +106,14 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
               // face direction still
               self.obj.frame = 3*Math.floor(self.obj.frame/3) + 1;
               self.moving = false;
+              self.busy = self.findingPath || self.moving;
             }, self);
           }
           tweens.push(t);
           tweens[j-1].chain(tweens[j]);
         }
         self.moving = true;
+        self.busy = self.findingPath || self.moving;
         tweens[0].start();
       }
     });

@@ -10,6 +10,7 @@ var preloadSprites = function (game) {
   // tiles
   game.load.image('grass_tile', 'asset/terrain/grass_tile.png');
   game.load.image('gbc_grass_tile', 'asset/terrain/gbc_grass_tile.png');
+  game.load.image('gbc_flower_tile', 'asset/terrain/gbc_flower_tile.png');
   game.load.image('dbg_grass_tile', 'asset/terrain/dbg_grass_tile.png');
 
   // buildings

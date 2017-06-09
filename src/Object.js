@@ -21,6 +21,7 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
   this.x = x;
   this.y = y;
   this.occupiedTiles = [] // [{x: 1, y: 2}]
+  this.busy = false;
 
   // random spawning
   var rnd = this.baseGame.mt.rnd();
