@@ -17,6 +17,7 @@ BasicGame = function (game) {
   this.ui;
   this.factories = factories;
   this.pokedex = pokedex;
+  this.mt = new MersenneTwister(); // if no seed is defined, seeds using timestamp
 
   // point globals to corresponding object
   Building.prototype.factory = this.factories;
@@ -55,10 +56,10 @@ BasicGame.prototype = {
     // global click listeners
     var self = this;
     this.game.input.onDown.add(function () {
-      if (this.game.input.activePointer.rightButton.isDown) {
+      if (this.game.input.activePointer.rightButton.isDown && !window.DIALOG) {
         self.ui.emitOnClick('r');
       }
-      if (this.game.input.activePointer.leftButton.isDown) {
+      if (this.game.input.activePointer.leftButton.isDown && !window.DIALOG) {
         self.ui.emitOnClick('l');
       }
     }, this);
@@ -107,6 +108,8 @@ BasicGame.prototype = {
   },
 
   click: function (pointer) {
-    this.hero.moveTowards(this.game.input.x, this.game.input.y);
+    if (!window.DIALOG) {
+      this.hero.moveTowards(this.game.input.x, this.game.input.y);
+    }
   },
 };

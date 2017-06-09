@@ -23,13 +23,13 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
   this.occupiedTiles = [] // [{x: 1, y: 2}]
 
   // random spawning
-  var rnd = Math.random()
+  var rnd = this.baseGame.mt.rnd();
   if (this.model.probability) {
-    if (rnd > this.model.probability) {
+    if (rnd >= this.model.probability) {
       throw "event didn't happen";
     }
   }
-  
+
   // see if it fits on tile map
   var tilemap = this.baseGame.map.getCurrentTilemap();
   var w;

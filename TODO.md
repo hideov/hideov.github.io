@@ -5,8 +5,6 @@ add a check for resolution on startup, and act accordingly
 
 custom dialog scrollbar
 
-dialog not resizing online
-
 try to unite buildings and units lists
 
 test when no path is available
@@ -17,10 +15,12 @@ sometimes border frame screws up when resizing.
 
 tinypng
 
-crystal
-
 remomve hand from dialog border
 
 forward http to https
 
 fix timinga.tk https cert
+
+Minimise js
+
+404ht.ml
