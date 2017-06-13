@@ -127,11 +127,9 @@ BasicGame.prototype = {
       // add new building
       previousBuilding = currentBuilding;
       var building = Object.keys(self.factories)[depth];
-      console.log(building)
       currentBuilding = new Building(self, -1, -1, building);
       var tm = self.map.getCurrentTilemap();
       easystar.setGrid(tm);
-
       //
       if (previousBuilding) {
         easystar.findPath(

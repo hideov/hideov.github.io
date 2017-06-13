@@ -20,14 +20,21 @@ Map.prototype.init = function () {
   // this.baseGame.game.add.image(0, 0, this.tilesprite);
 
   // use the bitmap data as the texture for the sprite
-  var image;
+  var image = this.baseGame.game.add.tileSprite(
+    0, 0, this.width, this.height, 'gbc_grass_tile'
+  );
   var rnd;
   for (var x = 0; x < this.width; x += this.delta) {
     for (var y = 0; y < this.width; y += this.delta) {
       rnd = this.baseGame.mt.rnd();
-      image = this.baseGame.game.add.image(
-        x, y, rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
-      );
+      if (rnd >= 0.65) {
+        image = this.baseGame.game.add.image(
+          x, y, 'gbc_flower_tile'
+        );
+      }
+      // image = this.baseGame.game.add.image(
+      //   x, y, rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
+      // );
       // this.tilesprite.draw(image)
     }
   }
