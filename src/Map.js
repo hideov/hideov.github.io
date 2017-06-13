@@ -10,16 +10,31 @@ Map.prototype.init = function () {
   this.delta = this.baseGame.game.delta; // must divide gcd(width, height)
 
   // setting background (should be a "loadlevel" function)
+  // var bmd = this.baseGame.game.add.bitmapData(this.width, this.height);
+  // bmd.ctx.beginPath();
+  // bmd.ctx.rect(0,0,this.width, this.height);
+  // bmd.ctx.fillStyle = '#00ff00';
+  // bmd.ctx.fill();
+  // this.tilesprite = bmd;
+  // // remember to destroy
+  // this.baseGame.game.add.image(0, 0, this.tilesprite);
+
+  // use the bitmap data as the texture for the sprite
+  var image;
   var rnd;
   for (var x = 0; x < this.width; x += this.delta) {
     for (var y = 0; y < this.width; y += this.delta) {
       rnd = this.baseGame.mt.rnd();
-      this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(
-        x, y, this.delta, this.delta,
-        rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
+      image = this.baseGame.game.add.image(
+        x, y, rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
       );
+      // this.tilesprite.draw(image)
     }
   }
+
+  // add background image
+  // this.tilesprite.render();
+
 
 };
 

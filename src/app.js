@@ -14,6 +14,7 @@ var bootup = function () {
   //  You don't have to do this in the html, it could be done in your Game state too, but for simplicity I'll keep it here.
   basicGame = new BasicGame(game);
   game.state.add('Game', basicGame);
+  window.BASE = basicGame;
 
   //  Now start the Game state.
   game.state.start('Game');
@@ -23,6 +24,9 @@ var bootup = function () {
 
 var reboot = function () {
   if (window.GAME && window.GAME.destroy) {
+    if (window.BASE && window.BASE.map && window.BASE.map.tilesprite) {
+      window.BASE.map.tilesprite.destroy();
+    }
     window.GAME.destroy();
   }
   window.GAME = bootup();

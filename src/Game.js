@@ -148,9 +148,9 @@ BasicGame.prototype = {
               for (var i = 0; i < path.length; i++) {
                 var x = path[i].x;
                 var y = path[i].y;
-                self.tilesprite = self.game.add.tileSprite(
+                self.tilesprite = self.game.add.image(
                   x * self.map.delta, y * self.map.delta,
-                  self.map.delta, self.map.delta,
+                  // self.map.delta, self.map.delta,
                   'gbc_cement_tile',
                 );
               }
