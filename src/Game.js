@@ -117,6 +117,7 @@ BasicGame.prototype = {
     var previousBuilding = undefined;
     var currentBuilding = undefined;
 
+    // prepare recursive building adding
     var addBuilding = function (len, depth, cb) {
       if (depth === len) {
         // finish looping
@@ -162,6 +163,7 @@ BasicGame.prototype = {
       }
     }
 
+    // now add the buildings!
     addBuilding(Object.keys(this.factories).length, 0, function () {
       // load hero
       try {
@@ -170,43 +172,5 @@ BasicGame.prototype = {
         self.hero = new Unit(self, -1, -1, 'heroine');
       }
     });
-
-    //
-    //
-    //
-    // for (var building in this.factories) {
-    //   // add new building
-    //   currentBuilding = new Building(this, -1, -1, building);
-    //   var tm = this.map.getCurrentTilemap();
-    //   easystar.setGrid(tm);
-    //   if (previousBuilding) {
-    //     // add path to previous building
-    //     easystar.findPath(
-    //       previousBuilding.x,
-    //       previousBuilding.y + previousBuilding.h,
-    //       currentBuilding.x,
-    //       currentBuilding.y + currentBuilding.h,
-    //       function( path ) {
-    //         // if no path found, try to get close
-    //         if (path === null || path.length === 0) {
-    //           // ?
-    //         } else {
-    //           // draw path
-    //           for (var i = 0; i < path.length; i++) {
-    //             var x = path[i].x;
-    //             var y = path[i].y;
-    //             self.tilesprite = self.game.add.tileSprite(
-    //               x * self.map.delta, y * self.map.delta,
-    //               self.map.delta, self.map.delta,
-    //               'gbc_cement_tile',
-    //             );
-    //           }
-    //         }
-    //       });
-    //     easystar.calculate();
-    //   }
-    //   previousBuilding = currentBuilding;
-    // }
-
   }
 };
