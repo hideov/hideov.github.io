@@ -81,7 +81,7 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
         var t = self.baseGame.game.add.tween(self.obj)
           .to({ x: path[0].x*self.baseGame.map.delta,
                 y: path[0].y*self.baseGame.map.delta },
-              120,
+              150,
               "Linear");
         t.onStart.add(self._createFrameUpdate(path[0].x, path[0].y),self);
         t.onComplete.add(self._createPositionUpdate(path[0].x, path[0].y), self);
@@ -91,7 +91,7 @@ Unit.prototype.moveTowards = function (x, y, recursiveCall) {
           t = self.baseGame.game.add.tween(self.obj)
             .to({ x: path[j].x*self.baseGame.map.delta,
                   y: path[j].y*self.baseGame.map.delta },
-                120,
+                150,
                 "Linear");
           t.onStart.add(self._createFrameUpdate(path[j].x, path[j].y),self);
           t.onComplete.add(self._createPositionUpdate(path[j].x, path[j].y), self);
