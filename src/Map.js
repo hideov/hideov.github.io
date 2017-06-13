@@ -15,10 +15,7 @@ Map.prototype.init = function () {
     for (var y = 0; y < this.width; y += this.delta) {
       rnd = this.baseGame.mt.rnd();
       this.baseGame.tilesprite = this.baseGame.game.add.tileSprite(
-        x,
-        y,
-        x + this.delta,
-        y + this.delta,
+        x, y, this.delta, this.delta,
         rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
       );
     }

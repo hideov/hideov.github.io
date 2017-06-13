@@ -7,6 +7,7 @@
 BasicGame = function (game) {
   this.game = game;
   this.tilesprite;
+  window.TILESPRITE = this.tilesprite;
   this.buildingsGrp;
   this.unitsGrp;
   this.buildings = {};
@@ -79,14 +80,7 @@ BasicGame.prototype = {
     this.unitsGrp.setAll('body.collideWorldBounds', true);
 
     // load map elements
-    new Building(this, 2,3, 'oak_lab');
-    new Building(this, 8,3, 'oak_lab');
-    // load hero
-    try {
-      this.hero = new Unit(this, 0, 0, 'hero');
-    } catch (exception) { // ADD PROPER EXCEPTION TYPES
-      this.hero = new Unit(this, 0, 0, 'heroine');
-    }
+    this.loadMapElements();
 
     // prepare input reactions
     this.game.input.onDown.add(this.click, this);
@@ -112,4 +106,107 @@ BasicGame.prototype = {
       this.hero.moveTowards(this.game.input.x, this.game.input.y);
     }
   },
+
+  loadMapElements: function () {
+    var self = this;
+    var easystar = new EasyStar.js();
+    easystar.setAcceptableTiles([0]);
+    // easystar.enableDiagonals(); // don't! animation relies on 4 directions
+    easystar.enableCornerCutting();
+
+    var previousBuilding = undefined;
+    var currentBuilding = undefined;
+
+    var addBuilding = function (len, depth, cb) {
+      if (depth === len) {
+        // finish looping
+        return cb();
+      }
+
+      // add new building
+      previousBuilding = currentBuilding;
+      var building = Object.keys(self.factories)[depth];
+      console.log(building)
+      currentBuilding = new Building(self, -1, -1, building);
+      var tm = self.map.getCurrentTilemap();
+      easystar.setGrid(tm);
+
+      //
+      if (previousBuilding) {
+        easystar.findPath(
+          previousBuilding.x,
+          previousBuilding.y + previousBuilding.h,
+          currentBuilding.x,
+          currentBuilding.y + currentBuilding.h,
+          function( path ) {
+            // if no path found, try to get close
+            if (path === null || path.length === 0) {
+              // ?
+            } else {
+              // draw path
+              for (var i = 0; i < path.length; i++) {
+                var x = path[i].x;
+                var y = path[i].y;
+                self.tilesprite = self.game.add.tileSprite(
+                  x * self.map.delta, y * self.map.delta,
+                  self.map.delta, self.map.delta,
+                  'gbc_cement_tile',
+                );
+              }
+            }
+            return addBuilding(len, ++depth, cb);
+          });
+          easystar.calculate();
+      } else {
+        return addBuilding(len, ++depth, cb);
+      }
+    }
+
+    addBuilding(Object.keys(this.factories).length, 0, function () {
+      // load hero
+      try {
+        self.hero = new Unit(self, -1, -1, 'hero');
+      } catch (exception) { // ADD PROPER EXCEPTION TYPES
+        self.hero = new Unit(self, -1, -1, 'heroine');
+      }
+    });
+
+    //
+    //
+    //
+    // for (var building in this.factories) {
+    //   // add new building
+    //   currentBuilding = new Building(this, -1, -1, building);
+    //   var tm = this.map.getCurrentTilemap();
+    //   easystar.setGrid(tm);
+    //   if (previousBuilding) {
+    //     // add path to previous building
+    //     easystar.findPath(
+    //       previousBuilding.x,
+    //       previousBuilding.y + previousBuilding.h,
+    //       currentBuilding.x,
+    //       currentBuilding.y + currentBuilding.h,
+    //       function( path ) {
+    //         // if no path found, try to get close
+    //         if (path === null || path.length === 0) {
+    //           // ?
+    //         } else {
+    //           // draw path
+    //           for (var i = 0; i < path.length; i++) {
+    //             var x = path[i].x;
+    //             var y = path[i].y;
+    //             self.tilesprite = self.game.add.tileSprite(
+    //               x * self.map.delta, y * self.map.delta,
+    //               self.map.delta, self.map.delta,
+    //               'gbc_cement_tile',
+    //             );
+    //           }
+    //         }
+    //       });
+    //     easystar.calculate();
+    //   }
+    //   previousBuilding = currentBuilding;
+    // }
+
+  }
 };

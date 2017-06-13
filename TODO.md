@@ -20,3 +20,7 @@ fix timinga.tk https cert
 Minimise js
 
 404ht.ml
+
+don't like the moving patch in 78e61b0..81c71f5
+
+spriting needs to happen in background, replace rather than add

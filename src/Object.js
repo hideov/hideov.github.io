@@ -20,7 +20,9 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
   this.collisions = []; // [{x: 1, y: 2}] nearby coords occupied last time we checked.
   this.x = x;
   this.y = y;
-  this.occupiedTiles = [] // [{x: 1, y: 2}]
+  this.w = -1;
+  this.h = -1;
+  this.occupiedTiles = []; // [{x: 1, y: 2}]
   this.busy = false;
 
   // random spawning
@@ -33,28 +35,40 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
 
   // see if it fits on tile map
   var tilemap = this.baseGame.map.getCurrentTilemap();
-  var w;
-  var h;
   if (this.model.frames) {
-    w = this.model.frames.w/this.baseGame.map.delta;
-    h = this.model.frames.h/this.baseGame.map.delta;
+    this.w = this.model.frames.w/this.baseGame.map.delta;
+    this.h = this.model.frames.h/this.baseGame.map.delta;
   } else {
-    w = this.baseGame.game.cache.getImage(this.model.sprite).width/this.baseGame.map.delta;
-    h = this.baseGame.game.cache.getImage(this.model.sprite).height/this.baseGame.map.delta;
+    this.w = this.baseGame.game.cache.getImage(this.model.sprite).width/this.baseGame.map.delta;
+    this.h = this.baseGame.game.cache.getImage(this.model.sprite).height/this.baseGame.map.delta;
   }
   var itFits = true;
-  for (var i = 0; i < w && itFits; i++) {
-    for (var j = 0; j < h && itFits; j++) {
-      var tile = {x: this.x+i, y: this.y+j};
-      itFits = tilemap[tile.y][tile.x] == 0;
-      this.occupiedTiles.push(tile);
-      this.collisions.push(JSON.stringify(tile)); // it collides with itself
+  // handle what to do if it never fits
+  do {
+    if (this.x < 0) {
+      this.x = Math.floor(this.baseGame.mt.rnd()*(tilemap[0].length - this.w));
     }
-  }
-  if (!itFits) {
-    this.occupiedTiles = [];
-    throw("it does not fit!");
-  }
+    if (this.y < 0) {
+      this.y = Math.floor(this.baseGame.mt.rnd()*(tilemap.length - this.h));
+    }
+    for (var i = 0; i < this.w && itFits; i++) {
+      // until +1 so that buildings don't get blocked below
+      for (var j = 0; j < this.h + 1 && itFits; j++) {
+        if (this.y+j >= tilemap.length) {
+          continue;
+        }
+        var tile = {x: this.x+i, y: this.y+j};
+        itFits = tilemap[tile.y][tile.x] == 0;
+        this.occupiedTiles.push(tile);
+        this.collisions.push(JSON.stringify(tile)); // it collides with itself
+      }
+    }
+    if (!itFits) {
+      this.occupiedTiles = [];
+      this.collisions = [];
+      // throw("it does not fit!");
+    }
+  } while (!itFits);
 
   // now the phaser part
   this.obj = this.baseGame.game.add.sprite(this.x*this.baseGame.map.delta,
