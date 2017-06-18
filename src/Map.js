@@ -4,44 +4,36 @@ Map = function (baseGame) {
   this.init();
 };
 
+Map.prototype.tiles = {
+  'grass': '0',
+  'flowers': '1',
+  'cement': '2',
+}
+
 Map.prototype.init = function () {
   this.width = this.baseGame.game.width;
   this.height = this.baseGame.game.height;
   this.delta = this.baseGame.game.delta; // must divide gcd(width, height)
 
-  // setting background (should be a "loadlevel" function)
-  // var bmd = this.baseGame.game.add.bitmapData(this.width, this.height);
-  // bmd.ctx.beginPath();
-  // bmd.ctx.rect(0,0,this.width, this.height);
-  // bmd.ctx.fillStyle = '#00ff00';
-  // bmd.ctx.fill();
-  // this.tilesprite = bmd;
-  // // remember to destroy
-  // this.baseGame.game.add.image(0, 0, this.tilesprite);
-
   // use the bitmap data as the texture for the sprite
-  var image = this.baseGame.game.add.tileSprite(
-    0, 0, this.width, this.height, 'gbc_grass_tile'
-  );
-  var rnd;
+  var tilemap = "";
   for (var x = 0; x < this.width; x += this.delta) {
     for (var y = 0; y < this.width; y += this.delta) {
-      rnd = this.baseGame.mt.rnd();
-      if (rnd >= 0.65) {
-        image = this.baseGame.game.add.image(
-          x, y, 'gbc_flower_tile'
-        );
-      }
-      // image = this.baseGame.game.add.image(
-      //   x, y, rnd < 0.65 ? 'gbc_grass_tile' : 'gbc_flower_tile'
-      // );
-      // this.tilesprite.draw(image)
+      tilemap += (this.baseGame.mt.rnd() < 0.65 ? this.tiles.grass : this.tiles.flowers) + ",";
     }
+    tilemap += "\n";
   }
+  this.baseGame.game.load.tilemap('baseMap', null, tilemap, Phaser.Tilemap.CSV);
 
-  // add background image
-  // this.tilesprite.render();
+  //  Because we're loading CSV map data we have to specify the tile size here or we can't render it
+  this.baseMap = this.baseGame.game.add.tilemap('baseMap', 64, 64);
 
+  //  Now add in the tileset
+  this.baseMap.addTilesetImage('gbc_tileset');
+
+  //  Create our layer
+  this.baseLayer = this.baseMap.createLayer(0);
+  // this.baseLayer.resizeWorld();
 
 };
 

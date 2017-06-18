@@ -13,6 +13,7 @@ var preloadSprites = function (game) {
   game.load.image('gbc_flower_tile', 'asset/terrain/gbc_flower_tile.png');
   game.load.image('gbc_cement_tile', 'asset/terrain/gbc_cement_tile.png');
   game.load.image('dbg_grass_tile', 'asset/terrain/dbg_grass_tile.png');
+  game.load.image('gbc_tileset', 'asset/terrain/gbc_tileset.png');
 
   // buildings
   game.load.image('oak_lab', 'asset/buildings/gbc_gym.png');
