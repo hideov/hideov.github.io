@@ -48,13 +48,26 @@ BasicGame.prototype = {
 
   preload: function () {
     // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    var maxW = Math.floor((jQuery(window).height()-160)/this.game.delta)*this.game.delta;
-    var maxH = Math.floor((jQuery(window).width()-160)/this.game.delta)*this.game.delta;
+    var maxH = Math.floor((jQuery(window).height()-160)/this.game.delta)*this.game.delta;
+    var maxW = Math.floor((jQuery(window).width()-160)/this.game.delta)*this.game.delta;
+    if (maxH < maxW) {
+      var minH = 120;
+      var minW = Math.round(minH / this.game.ratio);
+    } else {
+      // need to fix his for portrait view
+      var minW = 120;
+      var minH = Math.round(minW * this.game.ratio);
+    }
+    console.log( "minH "+ minH +
+                " minW "+ minW +
+                " maxH "+ (maxW*this.game.ratio < maxH ? Math.round(maxW*this.game.ratio) : maxH) + 
+                " maxW "+ (maxW*this.game.ratio < maxH ? maxW : Math.round(maxH / this.game.ratio))
+               );
     this.scale.setMinMax(
-      Math.round(384*this.game.ratio),
-      384,
-      Math.round(maxW*this.game.ratio) < maxH ? Math.round(maxW*this.game.ratio) : maxH,
-      Math.round(maxW*this.game.ratio) < maxH ? maxW : Math.round(maxH / this.game.ratio)
+      minW,
+      minH,
+      maxW*this.game.ratio < maxH ? maxW : Math.round(maxH / this.game.ratio),
+      maxW*this.game.ratio < maxH ? Math.round(maxW*this.game.ratio) : maxH
     );
     preloadSprites(this);
   },

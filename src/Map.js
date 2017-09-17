@@ -14,6 +14,7 @@ Map.prototype.init = function () {
   this.cols = this.baseGame.game.cols;
   this.rows = this.baseGame.game.rows;
   this.delta = this.baseGame.game.delta;
+  console.log("area: " + (this.rows * this.cols))
 
   // use the bitmap data as the texture for the sprite
   var tilemap = "";
