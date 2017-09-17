@@ -7,6 +7,7 @@ Building.prototype.constructor = Building;
 
 // Override init - so far not needed
 Building.prototype.init = function (x, y, kind) {
+  this.kind = "building";
   var res = Obj.prototype.init.apply(this, arguments);
 
   // add some cement in front of the building

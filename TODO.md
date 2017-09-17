@@ -24,5 +24,3 @@ Minimise js
 don't like the moving patch in 78e61b0..81c71f5
 
 spriting needs to happen in background, replace rather than add
-
-generate json for tilemap on the fly (for the background flowers), and draw using that

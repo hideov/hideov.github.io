@@ -52,9 +52,14 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
     this.x = Math.floor(this.baseGame.mt.rnd()*(tilemap[0].length - this.w));
     this.y = Math.floor(this.baseGame.mt.rnd()*(tilemap.length - 1 - this.h)); 
     for (var i = 0; (i < this.w) && itFits; i++) {
-      // until +1 so that buildings don't get blocked below
-      for (var j = 0; (j < this.h + 1) && itFits; j++) {
+      // from -1 to +1 so that buildings don't get blocked below or above
+      for (var j = 0 - (this.kind === "building"); (j < this.h + (this.kind === "building") ) && itFits; j++) {
         var tile = {x: this.x+i, y: this.y+j};
+        // check if out of bounds
+        if (tile.y < 0 || tile.y >= tilemap.length) {
+          itFits = false;
+          continue;
+        }
         itFits = tilemap[tile.y][tile.x] == 0;
         this.occupiedTiles.push(tile);
         this.collisions.push(JSON.stringify(tile)); // it collides with itself

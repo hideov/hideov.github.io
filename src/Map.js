@@ -11,18 +11,19 @@ Map.prototype.tiles = {
 }
 
 Map.prototype.init = function () {
-  this.width = this.baseGame.game.width;
-  this.height = this.baseGame.game.height;
-  this.delta = this.baseGame.game.delta; // must divide gcd(width, height)
+  this.cols = this.baseGame.game.cols;
+  this.rows = this.baseGame.game.rows;
+  this.delta = this.baseGame.game.delta;
 
   // use the bitmap data as the texture for the sprite
   var tilemap = "";
-  for (var x = 0; x < this.width; x += this.delta) {
-    for (var y = 0; y < this.width; y += this.delta) {
+  for (var y = 0; y < this.rows; y++) {
+    for (var x = 0; x < this.cols; x++) {
       tilemap += (this.baseGame.mt.rnd() < 0.65 ? this.tiles.grass : this.tiles.flowers) + ",";
     }
     tilemap += "\n";
   }
+
   this.baseGame.game.load.tilemap('baseMap', null, tilemap, Phaser.Tilemap.CSV);
 
   //  Because we're loading CSV map data we have to specify the tile size here or we can't render it
@@ -39,9 +40,9 @@ Map.prototype.init = function () {
 
 // should maybe be caching, run on 'update' and then return that.
 Map.prototype.getCurrentTilemap = function (cb) {
-  var tilemap = new Array(this.height/this.delta);
+  var tilemap = new Array(this.rows);
   for (var j = 0; j < tilemap.length; j++) {
-    tilemap[j] = new Array(this.width/this.delta);
+    tilemap[j] = new Array(this.cols);
     tilemap[j].fill(0);
   }
 

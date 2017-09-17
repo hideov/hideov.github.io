@@ -14,6 +14,11 @@ var factories = {
     sprite: 'oak_lab',
     onClick: Events.genOpenPage('/content/test.html', "test name"),
   },
+  // lol_place2: {
+  //   name: 'oak\'s',
+  //   sprite: 'oak_lab',
+  //   onClick: Events.genOpenPage('/content/test.html', "test name"),
+  // },
 };
 
 var pokedex = {
