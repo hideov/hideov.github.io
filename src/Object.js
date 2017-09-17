@@ -42,21 +42,18 @@ Obj.prototype.init = function (baseGame, x, y, kind) {
     this.w = this.baseGame.game.cache.getImage(this.model.sprite).width/this.baseGame.map.delta;
     this.h = this.baseGame.game.cache.getImage(this.model.sprite).height/this.baseGame.map.delta;
   }
-  var itFits = true;
+
   // handle what to do if it never fits
+  var itFits;
   do {
-    if (this.x < 0) {
-      this.x = Math.floor(this.baseGame.mt.rnd()*(tilemap[0].length - this.w));
-    }
-    if (this.y < 0) {
-      this.y = Math.floor(this.baseGame.mt.rnd()*(tilemap.length - this.h));
-    }
-    for (var i = 0; i < this.w && itFits; i++) {
+    itFits = true;
+    // generate coords. don't place anything on last y row, to avoid making it 
+    // unaccessable 
+    this.x = Math.floor(this.baseGame.mt.rnd()*(tilemap[0].length - this.w));
+    this.y = Math.floor(this.baseGame.mt.rnd()*(tilemap.length - 1 - this.h)); 
+    for (var i = 0; (i < this.w) && itFits; i++) {
       // until +1 so that buildings don't get blocked below
-      for (var j = 0; j < this.h + 1 && itFits; j++) {
-        if (this.y+j >= tilemap.length) {
-          continue;
-        }
+      for (var j = 0; (j < this.h + 1) && itFits; j++) {
         var tile = {x: this.x+i, y: this.y+j};
         itFits = tilemap[tile.y][tile.x] == 0;
         this.occupiedTiles.push(tile);

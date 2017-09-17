@@ -130,7 +130,7 @@ BasicGame.prototype = {
       currentBuilding = new Building(self, -1, -1, building);
       var tm = self.map.getCurrentTilemap();
       easystar.setGrid(tm);
-      //
+      
       if (previousBuilding) {
         easystar.findPath(
           previousBuilding.x,
