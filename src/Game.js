@@ -48,14 +48,13 @@ BasicGame.prototype = {
 
   preload: function () {
     // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    var ratio = 640.0/384.0
     var maxW = Math.floor((jQuery(window).height()-160)/this.game.delta)*this.game.delta;
     var maxH = Math.floor((jQuery(window).width()-160)/this.game.delta)*this.game.delta;
     this.scale.setMinMax(
-      Math.round(384*ratio),
+      Math.round(384*this.game.ratio),
       384,
-      Math.round(maxW*ratio) < maxH ? Math.round(maxW*ratio) : maxH,
-      Math.round(maxW*ratio) < maxH ? maxW : Math.round(maxH / ratio)
+      Math.round(maxW*this.game.ratio) < maxH ? Math.round(maxW*this.game.ratio) : maxH,
+      Math.round(maxW*this.game.ratio) < maxH ? maxW : Math.round(maxH / this.game.ratio)
     );
     preloadSprites(this);
   },
