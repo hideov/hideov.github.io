@@ -47,21 +47,28 @@ BasicGame.prototype = {
   },
 
   preload: function () {
-    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    var maxH = Math.floor((jQuery(window).height()-160)/this.game.delta)*this.game.delta;
-    var maxW = Math.floor((jQuery(window).width()-160)/this.game.delta)*this.game.delta;
+    // this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    var maxH = Math.floor((Math.min(jQuery(window).height(), window.screen.height)-168)/this.game.delta)*this.game.delta;
+    var maxW = Math.floor((Math.min(jQuery(window).width(), window.screen.width)-168)/this.game.delta)*this.game.delta;
+
+    console.log("maxH " + maxH)
+    console.log("ratio: "+ this.game.ratio)
+    
     if (maxH < maxW) {
+      console.log("landscape")
       var minH = 120;
       var minW = Math.round(minH / this.game.ratio);
     } else {
+      console.log("portrait")
       // need to fix his for portrait view
       var minW = 120;
       var minH = Math.round(minW * this.game.ratio);
     }
     console.log( "minH "+ minH +
-                " minW "+ minW +
-                " maxH "+ (maxW*this.game.ratio < maxH ? Math.round(maxW*this.game.ratio) : maxH) + 
-                " maxW "+ (maxW*this.game.ratio < maxH ? maxW : Math.round(maxH / this.game.ratio))
+                "\nminW "+ minW +
+                "\nmaxH (maxW*this.game.ratio < maxH) ? " + Math.round(maxW*this.game.ratio) + " : " + maxH + 
+                "\nmaxW (maxW*this.game.ratio < maxH) ? " + maxW + " : " + Math.round(maxH / this.game.ratio)
                );
     this.scale.setMinMax(
       minW,
@@ -69,6 +76,8 @@ BasicGame.prototype = {
       maxW*this.game.ratio < maxH ? maxW : Math.round(maxH / this.game.ratio),
       maxW*this.game.ratio < maxH ? Math.round(maxW*this.game.ratio) : maxH
     );
+    this.scale.refresh();
+
     preloadSprites(this);
   },
 

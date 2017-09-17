@@ -5,7 +5,7 @@ var bootup = function () {
   //  We're using a game size of 640 x 480 here, but you can use whatever you feel makes sense for your game of course.
   var delta = 64;
   var area = 200;
-  var ratio = (jQuery(window).height()-160)/(jQuery(window).width()-160);
+  var ratio = (Math.min(jQuery(window).height(), window.screen.height)-168)/(Math.min(jQuery(window).width(), window.screen.width)-168);
   var sar = Math.sqrt(area/ratio);
   var cols = Math.round(sar);
   var rows = Math.round(ratio*sar);
@@ -13,9 +13,13 @@ var bootup = function () {
   var height = rows * delta;
   ratio = height/width; // overwrite
 
+  // console.log("orig h " + (Math.min(jQuery(window).height(), window.screen.height)-168))
+  // console.log("adap h " + height)
+
   // var width = 1344;
   // var height = 768;
 
+  console.log("setting with w " + width + " h " + height)
   var game = new Phaser.Game(width, height, Phaser.CANVAS, 'game', null, false, false);
   game.delta = delta;
   game.cols = cols;
