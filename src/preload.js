@@ -28,4 +28,5 @@ var preloadSprites = function (game) {
   game.load.image('squirtle', 'asset/units/squirtle.png');
   game.load.spritesheet('gbc_hero', 'asset/units/gbc_hero.png', 64, 64, 12);
   game.load.spritesheet('gbc_heroine', 'asset/units/gbc_heroine.png', 64, 64, 12);
+  game.load.image('gbc_oak', 'asset/units/gbc_oak.png');
 };
