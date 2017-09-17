@@ -17,6 +17,11 @@ var preloadSprites = function (game) {
 
   // buildings
   game.load.image('oak_lab', 'asset/buildings/gbc_gym.png');
+  game.load.image('research', 'asset/buildings/gbc_research.png');
+  game.load.image('misc', 'asset/buildings/gbc_misc.png');
+  game.load.image('about', 'asset/buildings/gbc_about.png');
+  game.load.image('src', 'asset/buildings/gbc_src.png');
+  game.load.image('rhul', 'asset/buildings/gbc_rhul.png');
 
   // pokemon
   game.load.image('bulbasaur', 'asset/units/bulbasaur.png');

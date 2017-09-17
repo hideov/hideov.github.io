@@ -1,19 +1,24 @@
 var factories = {
-  oak_lab: {
-    name: 'oak\'s',
-    sprite: 'oak_lab',
+  research: {
+    name: 'research',
+    sprite: 'research',
     onClick: Events.genOpenPage('/content/test.html', "test name"),
   },
-  test_place: {
-    name: 'oak\'s',
-    sprite: 'oak_lab',
+  about: {
+    name: 'about',
+    sprite: 'about',
     onClick: Events.genOpenPage('/content/test.html', "test name"),
   },
-  lol_place: {
-    name: 'oak\'s',
-    sprite: 'oak_lab',
+  misc: {
+    name: 'misc',
+    sprite: 'misc',
     onClick: Events.genOpenPage('/content/test.html', "test name"),
   },
+  src: {
+    name: 'src',
+    sprite: 'src',
+    onClick: Events.genOpenPage('/content/test.html', "test name"),
+  }
   // lol_place2: {
   //   name: 'oak\'s',
   //   sprite: 'oak_lab',
